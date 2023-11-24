@@ -1,25 +1,35 @@
 package pl.kwolszczak.models;
 
+import com.github.javafaker.Faker;
+
 public class UserFactory {
-    private String firstName;
-    private String lastName;
-    private  String email;
-    private String password;
+    private static final Faker faker = new Faker();
+
+    private UserFactory() {
+    }
 
     public static User getRandomUser() {
-        return null;
+
+        var firstName = faker.name().firstName();
+        var lastName = faker.name().lastName();
+        var email = faker.internet().emailAddress();
+        var password = faker.internet().password(5, 8);
+
+        return User.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .password(password)
+                .build();
     }
 
     public static User getAlreadyRegistredUser() {
-
-        User user = User.builder()
+        return User.builder()
                 .firstName(System.getProperty("myStore.firstName"))
                 .lastName(System.getProperty("myStore.lastName"))
                 .password(System.getProperty("myStore.password"))
                 .email(System.getProperty("myStore.email"))
                 .build();
-     //   System.out.println(user);
-        return user;
     }
 
 }

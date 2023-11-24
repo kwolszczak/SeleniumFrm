@@ -20,6 +20,7 @@
         <jackson.yaml.ver>2.16.0</jackson.yaml.ver>
         <logback.version>1.4.11</logback.version>
         <lombok.version>1.18.30</lombok.version>
+
     </properties>
     <dependencies>
         <!-- useful dependecies -->
@@ -91,6 +92,14 @@
             <artifactId>jackson-dataformat-yaml</artifactId>
             <version>${jackson.yaml.ver}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+
 
     </dependencies>
 

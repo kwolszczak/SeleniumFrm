@@ -15,7 +15,11 @@ class BaseTest {
 
 
         AppConf.getInstance();
-        UserFactory.getAlreadyRegistredUser();
+
+        var us1 =UserFactory.getAlreadyRegistredUser();
+        var us2 =UserFactory.getRandomUser();
+        System.out.println(us1);
+        System.out.println(us2);
         driver = new DriverFactory().getDriver();
 
         Assertions.assertThat(driver.getTitle()).isEqualTo(System.getProperty("environment.eTitle"));
