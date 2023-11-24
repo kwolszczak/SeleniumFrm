@@ -1,3 +1,4 @@
+import configuration.AppConf;
 import configuration.driver.DriverFactory;
 
 import org.assertj.core.api.Assertions;
@@ -11,13 +12,11 @@ import org.openqa.selenium.WebDriver;
     @Test
     void simpleTest() {
 
-        System.setProperty("environment.url","https://onet.pl");
-        System.setProperty("browser.name","chrome");
 
-
+        AppConf.getInstance();
         driver = new DriverFactory().getDriver();
 
-        Assertions.assertThat(driver.getTitle()).isEqualTo("Onet – Jesteś na bieżąco");
+        Assertions.assertThat(driver.getTitle()).isEqualTo(System.getProperty("environment.eTitle"));
     }
 
     @AfterAll
