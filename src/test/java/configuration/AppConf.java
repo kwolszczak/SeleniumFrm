@@ -2,22 +2,21 @@ package configuration;
 
 import configuration.loader.YamlLoader;
 import configuration.model.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import configuration.model.*;
 
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class AppConf {
 
     private static final AppConf INSTANCE = new AppConf();
     private static Configuration config;
-    private static Logger log;
+
 
     private AppConf() {
-        log = LoggerFactory.getLogger(AppConf.class);
         loadYamlConfig();
         loadConfigurationToSystemProperties();
     }

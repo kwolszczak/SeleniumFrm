@@ -1,8 +1,8 @@
 environment:
   - active: true
     name: "test"
-    url: "https://logback.qos.ch/"
-    eTitle: "Logback Home"
+    url: "http://146.59.32.4/index.php"
+    eTitle: "TesterSii"
     implicitTimeout: 5
     webElementTimeout: 3
 
@@ -30,6 +30,12 @@ sqlDB:
   password: "admin"
 
 proxy: 33.333.33:3321
+
+myStore:
+  firstName: "Kamil"
+  lastName: "Limak"
+  email: "kamil.siilimak@sii.pl"
+  password: "Limak1!"
 
 
 

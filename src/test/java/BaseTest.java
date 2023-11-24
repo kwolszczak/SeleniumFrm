@@ -5,8 +5,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import pl.kwolszczak.models.UserFactory;
 
- class BaseTest {
+class BaseTest {
     protected static WebDriver driver;
 
     @Test
@@ -14,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 
 
         AppConf.getInstance();
+        UserFactory.getAlreadyRegistredUser();
         driver = new DriverFactory().getDriver();
 
         Assertions.assertThat(driver.getTitle()).isEqualTo(System.getProperty("environment.eTitle"));
