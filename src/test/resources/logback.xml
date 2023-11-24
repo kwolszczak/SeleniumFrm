@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration scan="true" debug="false">
+    <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
+    <import class="ch.qos.logback.core.ConsoleAppender"/>
+    <import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <import class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"/>
+    <import class="ch.qos.logback.classic.turbo.MarkerFilter"/>
+
+    <property name="DEV_HOME" value="${user.dir}/log"/>
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <turboFilter class="MarkerFilter">
+        <Marker>FATAL</Marker>
+        <onMatch>ACCEPT</onMatch>
+<!--        <onMismatch>DENY</onMismatch>-->
+    </turboFilter>
+
+    <appender name="STDOUT" class="ConsoleAppender">
+        <encoder class="PatternLayoutEncoder">
+            <pattern>[%thread] %highlight(%-5level) %cyan(%-15logger) --%(%kvp) -%msg %ex %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="RollingFileAppender">
+        <file>${DEV_HOME}/BaseLogFile.log</file>
+        <append>true</append>
+<!--        <file>${DEV_HOME}/timeBasedlogFile_${bySecond}.log</file>  &lt;!&ndash; z timestamp&ndash;&gt;-->
+
+        <rollingPolicy class="TimeBasedRollingPolicy">
+            <fileNamePattern>${DEV_HOME}/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <totalSizeCap>30KB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder class="PatternLayoutEncoder">
+            <pattern>%d [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="pl.kwolszczak.tests.base.BaseTest" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
