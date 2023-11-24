@@ -10,7 +10,7 @@ public abstract class SetupDriver {
 
     protected boolean headless = false;
     protected int implicitTimeout = 5;
-    protected String downloadDir = "\\src\\download";
+    protected String downloadDir = "src\\download";
     protected boolean maximize = true;
 
     public SetupDriver() {

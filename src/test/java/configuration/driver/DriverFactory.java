@@ -2,9 +2,11 @@ package configuration.driver;
 
 import configuration.browser.Browser;
 import configuration.driver.setup.SetupChrome;
+import configuration.driver.setup.SetupDriver;
 import configuration.driver.setup.SetupEdge;
 import configuration.driver.setup.SetupFirefox;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
@@ -36,9 +38,9 @@ public class DriverFactory {
     private void initDriver() {
         log.info("#### Setup {} browser", browserName);
         switch (browser) {
-            case CHROME -> driver = new SetupChrome().getDriver();
-            case FIREFOX -> driver = new SetupFirefox().getDriver();
-            case EDGE -> driver = new SetupEdge().getDriver();
+            case CHROME -> driver = setUpDriver(SetupChrome.class);
+            case FIREFOX -> driver = setUpDriver(SetupFirefox.class);
+            case EDGE -> driver = setUpDriver(SetupEdge.class);
             default -> driver = new SafariDriver();
         }
     }
@@ -46,6 +48,11 @@ public class DriverFactory {
     private void navigateUrl() {
         log.info("Open appUrl from config {}", url);
         driver.get(url);
+    }
+
+    @SneakyThrows
+    private  <T extends SetupDriver> WebDriver setUpDriver(Class<T> driverType) {
+        return driverType.getDeclaredConstructor().newInstance().getDriver();
     }
 
 }

@@ -17,7 +17,7 @@ import org.openqa.selenium.WebDriver;
 
         driver = new DriverFactory().getDriver();
 
-        Assertions.assertThat(driver.getTitle()).isEqualTo("Onet");
+        Assertions.assertThat(driver.getTitle()).isEqualTo("Onet – Jesteś na bieżąco");
     }
 
     @AfterAll
