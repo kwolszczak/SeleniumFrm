@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.pages.support.SupportPage;
 
+import java.util.List;
+
 public class HeaderComponent extends SupportPage {
 
     @FindBy(css = "div#search_widget input[type='text']")
@@ -12,6 +14,7 @@ public class HeaderComponent extends SupportPage {
 
     @FindBy(css = "div#search_widget button")
     private WebElement searchBtn;
+
 
     public HeaderComponent(WebDriver driver, WebElement parent) {
         super(driver, parent);
