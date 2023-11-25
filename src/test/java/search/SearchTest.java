@@ -5,37 +5,44 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pl.kwolszczak.models.Product;
 import pl.kwolszczak.models.UserFactory;
 import pl.kwolszczak.pages.home.HomePage;
+
+import java.util.List;
 
 class SearchTest extends BaseTest {
 
     @Test
     @DisplayName("Search product")
-    void searchTest() throws InterruptedException {
+    void searchTest() {
 
         HomePage homePage = new HomePage(driver);
-        var productName = homePage.getProductName();
+        Product randomProduct = homePage.getRandomProduct();
+        String productName = randomProduct.getName();
 
-        var result = homePage.search(productName)
-                .getAllProductsNames();
+        List<Product> foundedProducts = homePage
+                .search(productName)
+                .getProducts();
 
-        Assertions.assertThat(result).contains(productName);
+        Assertions.assertThat(foundedProducts)
+                .usingRecursiveFieldByFieldElementComparator()
+                .contains(randomProduct);
     }
 
     @Test
     @DisplayName("Search product- drop down")
-    void searchTest_dropDown() throws InterruptedException {
-
-        HomePage homePage = new HomePage(driver);
+    void searchTest_dropDown() {
         var productName = "HUMMINGBIRD";
 
-        var result = homePage.fillSearch(productName).getSearchResults();
+        HomePage homePage = new HomePage(driver);
 
-        Assertions.assertThat(result)
+        var searchHints = homePage
+                .search(productName, false)
+                .getSearchHints();
+
+        Assertions.assertThat(searchHints)
                 .anySatisfy(item -> Assertions.assertThat(item).contains(productName));
-
-
     }
 
     @Test

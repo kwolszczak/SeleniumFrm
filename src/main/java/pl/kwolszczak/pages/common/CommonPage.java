@@ -3,7 +3,6 @@ package pl.kwolszczak.pages.common;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pl.kwolszczak.pages.search.SearchResultPage;
 import pl.kwolszczak.pages.support.SupportPage;
@@ -22,7 +21,7 @@ public class CommonPage extends SupportPage {
     private WebElement footerSection;
 
     @FindBy(css = "ul#ui-id-1 li a span:nth-child(3)")
-    private List<WebElement> searchList;
+    private List<WebElement> searchHints;
 
     public CommonPage(WebDriver driver) {
         super(driver);
@@ -31,18 +30,21 @@ public class CommonPage extends SupportPage {
     }
 
     public SearchResultPage search(String product) {
-        header.search(product);
+        header.search(product, true);
         return new SearchResultPage(driver);
     }
 
-    public CommonPage fillSearch(String product) {
-        header.fillInSearch(product);
+    public CommonPage search(String product, boolean click) {
+        if (!click) {
+            header.search(product, false);
+        }
         return this;
     }
 
-    public List<String> getSearchResults() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(searchList));
-        return searchList.stream().map(WebElement::getText).toList();
+
+    public List<String> getSearchHints() {
+        wait.until(ExpectedConditions.visibilityOfAllElements(searchHints));
+        return searchHints.stream().map(WebElement::getText).toList();
     }
 
 }

@@ -1,6 +1,7 @@
 package pl.kwolszczak.pages.search;
 
 import org.openqa.selenium.WebDriver;
+import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.common.CommonPage;
 import pl.kwolszczak.pages.common.ThumbnailListComponent;
 
@@ -15,8 +16,8 @@ public class SearchResultPage extends CommonPage {
     }
 
 
-    public List<String> getAllProductsNames() {
-        return thumbnails.getProductsNames();
+    public List<Product> getProducts(){
+        return thumbnails.getProducts();
     }
 
 }

@@ -13,19 +13,17 @@ public class HeaderComponent extends SupportPage {
     @FindBy(css = "div#search_widget button")
     private WebElement searchBtn;
 
-
     public HeaderComponent(WebDriver driver, WebElement parent) {
         super(driver, parent);
     }
 
-    public HeaderComponent fillInSearch(String product) {
-        fill(searchInp, product);
-        return this;
-    }
-
-    public HeaderComponent search(String product) {
-        fillInSearch(product);
-        clickIt(searchBtn);
+    public HeaderComponent search(String product, boolean click) {
+        if (click) {
+            fill(searchInp, product);
+            clickIt(searchBtn);
+        } else {
+            fill(searchInp, product);
+        }
         return this;
     }
 }
