@@ -4,7 +4,7 @@ environment:
     url: "http://146.59.32.4/index.php"
     eTitle: "TesterSii"
     implicitTimeout: 5
-    webElementTimeout: 3
+    webElementTimeout: 5
 
   - active: false
     name: "uat"
