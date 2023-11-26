@@ -3,19 +3,28 @@ package products;
 import base.BaseTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import pl.kwolszczak.models.UserFactory;
+import pl.kwolszczak.pages.categories.CategoryPage;
+import pl.kwolszczak.providers.Category;
 
 public class FiltersTest extends BaseTest {
 
-    @Test
+    // @Test
     @Disabled
-    void simpleTest() {
-        var us1 = UserFactory.getAlreadyRegistredUser();
-        var us2 = UserFactory.getRandomUser();
-        System.out.println(us1);
-        System.out.println(us2);
+    @RepeatedTest(10)
+    void simpleTest() throws InterruptedException {
+        driver.get(Category.ACCESSORIES.getUrl());
+        CategoryPage categoryPage = new CategoryPage(driver);
+        var expectedNumOfProducts = categoryPage.getNumberOfProducts();
 
-        Assertions.assertThat(driver.getTitle()).isEqualTo(System.getProperty("environment.eTitle"));
+        categoryPage
+                .setPrice(13, 15)
+                .clearFillters();
+
+
+        var numOfProducts = categoryPage.getNumberOfProducts();
+        Assertions.assertThat(numOfProducts).isEqualTo(expectedNumOfProducts);
     }
 }

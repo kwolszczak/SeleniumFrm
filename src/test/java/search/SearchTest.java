@@ -3,6 +3,7 @@ package search;
 import base.BaseTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.home.HomePage;
@@ -11,7 +12,7 @@ import java.util.List;
 
 class SearchTest extends BaseTest {
 
-    @Test
+    @RepeatedTest(10)
     @DisplayName("Search product")
     void searchTest() {
 
@@ -28,7 +29,7 @@ class SearchTest extends BaseTest {
                 .contains(randomProduct);
     }
 
-    @Test
+    @RepeatedTest(10)
     @DisplayName("Search product- drop down")
     void searchTest_dropDown() {
 

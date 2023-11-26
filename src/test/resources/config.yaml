@@ -4,14 +4,14 @@ environment:
     url: "http://146.59.32.4/index.php"
     eTitle: "TesterSii"
     implicitTimeout: 5
-    webElementTimeout: 5
+    webElementTimeout: 6
 
   - active: false
     name: "uat"
     url: "https://www.selenium.dev/"
     eTitle: "Selenium"
     implicitTimeout: 5
-    webElementTimeout: 3
+    webElementTimeout: 10
 
 
 browser:
