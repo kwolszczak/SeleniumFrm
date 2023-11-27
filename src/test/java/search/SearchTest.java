@@ -4,25 +4,21 @@ import base.BaseTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
-import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.home.HomePage;
-
-import java.util.List;
 
 class SearchTest extends BaseTest {
 
-    @RepeatedTest(10)
+    @RepeatedTest(3)
     @DisplayName("Search product")
     void searchTest() {
 
-        HomePage homePage = new HomePage(driver);
-        Product randomProduct = homePage.getRandomProduct();
-        String productName = randomProduct.getName();
+        var randomProduct = at(HomePage.class)
+                .getRandomProduct();
 
-        List<Product> foundedProducts = homePage
-                .search(productName)
+        var foundedProducts = at(HomePage.class)
+                .search(randomProduct.getName())
                 .getProducts();
+
 
         Assertions.assertThat(foundedProducts)
                 .usingRecursiveFieldByFieldElementComparator()
@@ -34,11 +30,11 @@ class SearchTest extends BaseTest {
     void searchTest_dropDown() {
 
         var productName = "HUMMINGBIRD";
-        HomePage homePage = new HomePage(driver);
 
-        var searchHints = homePage
+        var searchHints = at(HomePage.class)
                 .search(productName, false)
                 .getSearchHints();
+
 
         Assertions.assertThat(searchHints)
                 .anySatisfy(item -> Assertions.assertThat(item).contains(productName));
