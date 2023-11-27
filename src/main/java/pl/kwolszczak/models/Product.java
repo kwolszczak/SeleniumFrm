@@ -11,11 +11,33 @@ public class Product implements Comparable<Product> {
     private String name;
     private String size;
     private String color;
-    private int price;
+    private double price;
 
+    public Product() {
+    }
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return getName() != null ? getName().equals(product.getName()) : product.getName() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getName() != null ? getName().hashCode() : 0;
+    }
 
     @Override
     public int compareTo(Product o) {
-        return (this.name+this.price).compareTo(o.name+o.price);
+        return this.name.compareTo(o.name);
     }
 }

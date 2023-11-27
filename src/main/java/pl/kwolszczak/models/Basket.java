@@ -21,20 +21,16 @@ public class Basket {
     }
 
     public void addBasketLine(BasketLine basketLine) {
-        //jezeli bl jest to update quantity ???? dodac comparable
         int index;
         if (( index=products.indexOf(basketLine)) != -1){
             products.get(index).increaseQuantity(basketLine.getQuantity());
-           // return products.get(index);
         }else {
-            //jezeli nie ma to dodaj
             products.add(basketLine);
-
-            //update ceny
-
-            // return basketLine;
-        }totalPrice += basketLine.getTotalPrice();
+        }
+        totalPrice += basketLine.getTotalPrice();
     }
 
-
+    public List<BasketLine> getProducts() {
+        return products;
+    }
 }

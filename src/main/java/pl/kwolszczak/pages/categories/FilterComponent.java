@@ -1,5 +1,6 @@
 package pl.kwolszczak.pages.categories;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,18 +37,17 @@ public class FilterComponent extends SupportPage {
 
         while (getPriceFrom() < from) {
             leftBtn.sendKeys(Keys.ARROW_RIGHT);
-            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
-                    List.of(priceLabel, leftBtn, clearAll)
-            )));
+
+            var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
+            wait.until(ExpectedConditions.invisibilityOf(spinner));
         }
 
-        await().atMost(10, SECONDS).until(() -> isElementPresent(rightBtn));
 
         while (getPriceTo() > to) {
             rightBtn.sendKeys(Keys.ARROW_LEFT);
-            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
-                    List.of(priceLabel, rightBtn, clearAll)
-            )));
+
+            var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
+            wait.until(ExpectedConditions.invisibilityOf(spinner));
         }
 
         return this;
@@ -63,25 +63,14 @@ public class FilterComponent extends SupportPage {
 
     private double getPriceFrom() {
 
-        await().atMost(10, SECONDS).until(() -> isElementPresent(priceLabel));
         double priceFrom = Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]", ""));
         return priceFrom;
     }
 
     private double getPriceTo() {
 
-        await().atMost(10, SECONDS).until(() -> isElementPresent(priceLabel));
         double priceTo = Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]", ""));
         return priceTo;
-    }
-
-    private static boolean isElementPresent(WebElement webElement) {
-        try {
-            webElement.isDisplayed();
-            return true;
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
-        }
     }
 
 
