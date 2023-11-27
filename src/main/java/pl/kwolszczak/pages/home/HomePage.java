@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.common.CommonPage;
 import pl.kwolszczak.pages.common.ThumbnailListComponent;
+import pl.kwolszczak.pages.product.ProductPage;
 
 public class HomePage extends CommonPage {
 
@@ -14,9 +15,19 @@ public class HomePage extends CommonPage {
         thumbnails = new ThumbnailListComponent(driver);
     }
 
-    public Product getRandomProduct() {
+    private int randomProductIndex(){
         int size = thumbnails.getProducts().size();
         int index = random.nextInt(0, size);
-        return thumbnails.getProducts().get(index);
+        return index;
+    }
+
+    public Product getRandomProduct() {
+        var index = randomProductIndex();
+        return thumbnails.getProductsModels().get(index);
+    }
+
+    public ProductPage openRandomProductPage() {
+        thumbnails.getProducts().get(randomProductIndex()).openProductDetails();
+        return new ProductPage(driver);
     }
 }

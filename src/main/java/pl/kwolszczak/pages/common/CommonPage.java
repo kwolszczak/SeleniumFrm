@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.search.SearchResultPage;
 import pl.kwolszczak.pages.support.SupportPage;
 
@@ -45,6 +46,11 @@ public class CommonPage extends SupportPage {
     public List<String> getSearchHints() {
         wait.until(ExpectedConditions.visibilityOfAllElements(searchHints));
         return searchHints.stream().map(WebElement::getText).toList();
+    }
+
+    public HomePage goHomePage(){
+        header.goHomePage();
+        return new HomePage(driver);
     }
 
 }

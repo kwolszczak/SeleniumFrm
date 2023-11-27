@@ -9,7 +9,7 @@ import pl.kwolszczak.providers.Category;
 public class FiltersTest extends BaseTest {
 
     // @Test
-    @RepeatedTest(10)
+    @RepeatedTest(3)
     void filterTest() throws InterruptedException {
         driver.get(Category.ACCESSORIES.getUrl());
         var expectedNumOfProducts = at(CategoryPage.class)

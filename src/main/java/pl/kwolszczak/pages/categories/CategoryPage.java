@@ -32,7 +32,7 @@ public class CategoryPage extends CommonPage {
     }
 
     public List<Product> getProducts(){
-        return thumbnails.getProducts();
+        return thumbnails.getProductsModels();
     }
 
     public int getNumberOfProducts() {

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Product;
+import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.pages.support.SupportPage;
 
 public class ThumbnailComponent extends SupportPage {
@@ -17,6 +18,10 @@ public class ThumbnailComponent extends SupportPage {
 
     public String getName() {
         return name.getText();
+    }
+
+    public void openProductDetails() {
+        clickIt(name);
     }
 
 

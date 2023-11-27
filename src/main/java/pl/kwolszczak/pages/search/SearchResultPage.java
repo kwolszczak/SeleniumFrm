@@ -16,7 +16,7 @@ public class SearchResultPage extends CommonPage {
     }
 
     public List<Product> getProducts() {
-        return thumbnails.getProducts();
+        return thumbnails.getProductsModels();
     }
 
 }

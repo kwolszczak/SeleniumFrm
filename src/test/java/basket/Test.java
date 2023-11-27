@@ -3,31 +3,47 @@ package basket;
 import base.BaseTest;
 import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.UserFactory;
+import pl.kwolszczak.pages.basket.ProductPopUpPage;
+import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
+import pl.kwolszczak.providers.UrlProvider;
+
+import java.util.Random;
 
 public class Test extends BaseTest {
 
     @org.junit.jupiter.api.Test
     void test() throws InterruptedException {
-        driver.get("http://146.59.32.4/index.php?id_product=1&id_product_attribute=1&rewrite=hummingbird-printed-t-shirt&controller=product&id_lang=2#/1-size-s/8-color-white");
+        int quantityOfProduct = new Random().nextInt(1,5);
         Basket basket = new Basket();
-        var x=at(ProductPage.class)
-                .addToBasket(1, basket);
-        Thread.sleep(5000);
-        var xy=at(ProductPage.class)
-                .addToBasket(1, basket);
-        System.out.println("total price in basket: "+basket.getTotalPrice());
-        System.out.println(basket.getProducts().get(0).getQuantity());
-        System.out.println(basket.getProducts().get(0).getTotalPrice());
-        System.out.println(basket.getProducts().get(0).getProduct().getName());
-        System.out.println(basket.getProducts().get(0).getProduct().getPrice());
-        System.out.println(basket.getProducts().get(1).getQuantity());
-        System.out.println(basket.getProducts().get(1).getTotalPrice());
-        System.out.println(basket.getProducts().get(1).getProduct().getName());
-        System.out.println(basket.getProducts().get(1).getProduct().getPrice());
-      //  System.out.println("price of one product: "+x.getPrice());
 
-        Thread.sleep(3000);
+        for (int i = 0; i < 10; i++) {
+            at(HomePage.class)
+                    .openRandomProductPage();
+            at(ProductPage.class)
+                    .addToBasket(quantityOfProduct, basket);
+            at(ProductPopUpPage.class)
+                    .continueShopping();
+            at(ProductPage.class)
+                    .goHomePage();
+        }
+
+        driver.get(UrlProvider.CART);
+        Basket actualBasket = new Basket();
+
+
+        System.out.println("total price in basket: "+basket.getTotalPrice());
+        for (var p: basket.getProducts()) {
+            System.out.println("--------------");
+            System.out.println("product name: "+p.getProduct().getName());
+            System.out.println("total product price: "+p.getTotalPrice());
+            System.out.println("quantity: "+ p.getQuantity());
+            System.out.println(" price: "+p.getProduct().getPrice());
+            System.out.println("--------------");
+        }
+
+        Thread.sleep(5000);
+
 
         var us1 = UserFactory.getAlreadyRegistredUser();
         var us2 = UserFactory.getRandomUser();

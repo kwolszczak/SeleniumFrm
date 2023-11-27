@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.BasketLine;
 import pl.kwolszczak.models.Product;
+import pl.kwolszczak.pages.basket.ProductPopUpPage;
 import pl.kwolszczak.pages.common.CommonPage;
 
 public class ProductPage extends CommonPage {
@@ -23,12 +24,12 @@ public class ProductPage extends CommonPage {
         super(driver);
     }
 
-    public ProductPage addToBasket(int quantity, Basket basket) {
+    public ProductPopUpPage addToBasket(int quantity, Basket basket) {
         setQuantityInp(quantity);
         basket.addBasketLine(toBasketLine());
         clickIt(addToCartBtn);
 
-        return this;
+        return new ProductPopUpPage(driver);
     }
 
     private void setQuantityInp(int quantityInp) {

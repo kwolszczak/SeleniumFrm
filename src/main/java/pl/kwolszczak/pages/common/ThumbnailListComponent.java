@@ -20,13 +20,19 @@ public class ThumbnailListComponent extends CommonPage {
         setThumbnails();
     }
 
+    public List<ThumbnailComponent> getProducts() {
+        return thumbnailsComponents;
+    }
+
+
     private void setThumbnails() {
         thumbnailsComponents = new LinkedList<>();
         thumbnailsComponents = products.stream().map(we -> new ThumbnailComponent(driver, we)).toList();
     }
 
-    public List<Product> getProducts() {
+    public List<Product> getProductsModels() {
         return thumbnailsComponents.stream().map(ThumbnailComponent::getProduct).toList();
     }
+
 
 }

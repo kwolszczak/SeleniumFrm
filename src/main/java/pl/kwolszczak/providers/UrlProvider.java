@@ -4,6 +4,7 @@ import java.util.List;
 
 public class UrlProvider {
     private static String appUrl = System.getProperty("environment.url");
+    public static final String CART = appUrl + "?controller=cart&action=show";
     public static final String CLOTHES = appUrl + "?id_category=3&controller=category&id_lang=2";
     public static final String CLOTHS_MEN = appUrl + "?id_category=4&controller=category&id_lang=2";
     public static final String CLOTHS_WOMEN = appUrl + "?id_category=5&controller=category&id_lang=2";
