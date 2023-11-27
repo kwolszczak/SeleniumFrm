@@ -3,7 +3,6 @@ package pl.kwolszczak.pages.categories;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.common.CommonPage;
 import pl.kwolszczak.pages.common.ThumbnailListComponent;
@@ -11,6 +10,7 @@ import pl.kwolszczak.pages.common.ThumbnailListComponent;
 import java.util.List;
 
 public class CategoryPage extends CommonPage {
+
     private ThumbnailListComponent thumbnails;
     private FilterComponent filter;
 
@@ -47,7 +47,7 @@ public class CategoryPage extends CommonPage {
         return filterMenu.isDisplayed();
     }
 
-    public CategoryPage clearFillters() throws InterruptedException {
+    public CategoryPage clearFilters()  {
         filter.clearAllFilters();
         return this;
     }

@@ -18,7 +18,7 @@ public class FiltersTest extends BaseTest {
 
         var numOfProducts = at(CategoryPage.class)
                 .setPrice(13, 15)
-                .clearFillters()
+                .clearFilters()
                 .getNumberOfProducts();
 
         Assertions.assertThat(numOfProducts).isEqualTo(expectedNumOfProducts);

@@ -15,8 +15,7 @@ public class SearchResultPage extends CommonPage {
         thumbnails = new ThumbnailListComponent(driver);
     }
 
-
-    public List<Product> getProducts(){
+    public List<Product> getProducts() {
         return thumbnails.getProducts();
     }
 

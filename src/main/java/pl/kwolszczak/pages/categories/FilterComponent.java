@@ -10,6 +10,9 @@ import pl.kwolszczak.pages.support.SupportPage;
 
 import java.util.List;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
+
 public class FilterComponent  extends SupportPage {
 
 
@@ -32,21 +35,29 @@ public class FilterComponent  extends SupportPage {
         super(driver, parent);
     }
 
-    public FilterComponent setPrice(double from, double to) throws InterruptedException {
+    public FilterComponent setPrice(double from, double to)  {
 
         while (getPriceFrom() < from) {
 
             leftBtn.sendKeys(Keys.ARROW_RIGHT);
-            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
+           /* wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
                     List.of(priceLabel,leftBtn, clearAll)
-                    )));
+                    )));*/
+            await().atMost(10, SECONDS).until(() -> isElementPresent(leftBtn));
+            await().atMost(10, SECONDS).until(() -> isElementPresent(rightBtn));
         }
         while (getPriceTo() > to) {
 
+
             rightBtn.sendKeys(Keys.ARROW_LEFT);
-            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
+            await().atMost(10, SECONDS).until(() -> isElementPresent(rightBtn));
+            await().atMost(10, SECONDS).until(() -> isElementPresent(leftBtn));
+          /*  wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
                     List.of(priceLabel,rightBtn, clearAll)
-            )));
+            )));*/
+
+
+
         }
         return this;
     }
@@ -59,15 +70,24 @@ public class FilterComponent  extends SupportPage {
         return this;
     }
 
-    private double getPriceFrom() throws InterruptedException {
+    private double getPriceFrom()  {
 
         double priceFrom = Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]",""));
         return priceFrom;
     }
 
-    private double getPriceTo() throws InterruptedException {
+    private double getPriceTo()  {
         double priceTo = Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]",""));
         return priceTo;
+    }
+
+    private static boolean isElementPresent(WebElement webElement) {
+        try {
+            webElement.isDisplayed();
+            return true;
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return false;
+        }
     }
 
 }

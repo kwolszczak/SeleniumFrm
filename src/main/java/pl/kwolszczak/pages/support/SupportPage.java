@@ -15,7 +15,8 @@ public class SupportPage {
     protected Random random = new Random();
     protected WebDriverWait wait;
     private Duration timeout;
-    public SupportPage(WebDriver driver){
+
+    public SupportPage(WebDriver driver) {
         this.driver = driver;
         initTimeout(driver);
         PageFactory.initElements(driver, this);
@@ -23,15 +24,15 @@ public class SupportPage {
 
     public SupportPage(WebDriver driver, WebElement parent) {
         initTimeout(driver);
-        PageFactory.initElements(new DefaultElementLocatorFactory(parent),this);
+        PageFactory.initElements(new DefaultElementLocatorFactory(parent), this);
     }
 
     private void initTimeout(WebDriver driver) {
-        this.timeout=Duration.ofSeconds(Integer.parseInt(System.getProperty("environment.webElementTimeout")));;
-        this.wait = new WebDriverWait(driver,timeout);
+        this.timeout = Duration.ofSeconds(Integer.parseInt(System.getProperty("environment.webElementTimeout")));
+        this.wait = new WebDriverWait(driver, timeout);
     }
 
-    public void fill(WebElement element,String value) {
+    public void fill(WebElement element, String value) {
         element.clear();
         element.sendKeys(value);
     }
