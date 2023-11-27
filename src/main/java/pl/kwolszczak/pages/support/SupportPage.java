@@ -17,17 +17,17 @@ public class SupportPage {
     private Duration timeout;
 
     public SupportPage(WebDriver driver) {
-        this.driver = driver;
-        initTimeout(driver);
+        init(driver);
         PageFactory.initElements(driver, this);
     }
 
     public SupportPage(WebDriver driver, WebElement parent) {
-        initTimeout(driver);
+        init(driver);
         PageFactory.initElements(new DefaultElementLocatorFactory(parent), this);
     }
 
-    private void initTimeout(WebDriver driver) {
+    private void init(WebDriver driver) {
+        this.driver = driver;
         this.timeout = Duration.ofSeconds(Integer.parseInt(System.getProperty("environment.webElementTimeout")));
         this.wait = new WebDriverWait(driver, timeout);
     }
