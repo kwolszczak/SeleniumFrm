@@ -1,6 +1,5 @@
 package pl.kwolszczak.pages.categories;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,8 +12,7 @@ import java.util.List;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 
-public class FilterComponent  extends SupportPage {
-
+public class FilterComponent extends SupportPage {
 
 
     @FindBy(css = "p[id *= 'facet_label']")
@@ -30,39 +28,32 @@ public class FilterComponent  extends SupportPage {
     private WebElement leftBtn;
 
 
-
     public FilterComponent(WebDriver driver, WebElement parent) {
         super(driver, parent);
     }
 
-    public FilterComponent setPrice(double from, double to)  {
+    public FilterComponent setPrice(double from, double to) {
 
         while (getPriceFrom() < from) {
-
             leftBtn.sendKeys(Keys.ARROW_RIGHT);
-           /* wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
-                    List.of(priceLabel,leftBtn, clearAll)
-                    )));*/
-            await().atMost(10, SECONDS).until(() -> isElementPresent(leftBtn));
-            await().atMost(10, SECONDS).until(() -> isElementPresent(rightBtn));
+            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
+                    List.of(priceLabel, leftBtn, clearAll)
+            )));
         }
+
+        await().atMost(10, SECONDS).until(() -> isElementPresent(rightBtn));
+
         while (getPriceTo() > to) {
-
-
             rightBtn.sendKeys(Keys.ARROW_LEFT);
-            await().atMost(10, SECONDS).until(() -> isElementPresent(rightBtn));
-            await().atMost(10, SECONDS).until(() -> isElementPresent(leftBtn));
-          /*  wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
-                    List.of(priceLabel,rightBtn, clearAll)
-            )));*/
-
-
-
+            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(
+                    List.of(priceLabel, rightBtn, clearAll)
+            )));
         }
+
         return this;
     }
 
-    public FilterComponent clearAllFilters()  {
+    public FilterComponent clearAllFilters() {
         clearAll.click();
         wait.until(ExpectedConditions.refreshed(ExpectedConditions.invisibilityOf(
                 clearAll
@@ -70,14 +61,17 @@ public class FilterComponent  extends SupportPage {
         return this;
     }
 
-    private double getPriceFrom()  {
+    private double getPriceFrom() {
 
-        double priceFrom = Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]",""));
+        await().atMost(10, SECONDS).until(() -> isElementPresent(priceLabel));
+        double priceFrom = Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]", ""));
         return priceFrom;
     }
 
-    private double getPriceTo()  {
-        double priceTo = Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]",""));
+    private double getPriceTo() {
+
+        await().atMost(10, SECONDS).until(() -> isElementPresent(priceLabel));
+        double priceTo = Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]", ""));
         return priceTo;
     }
 
@@ -89,5 +83,6 @@ public class FilterComponent  extends SupportPage {
             return false;
         }
     }
+
 
 }
