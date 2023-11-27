@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Product;
-import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.pages.support.SupportPage;
 
 public class ThumbnailComponent extends SupportPage {
@@ -20,12 +19,12 @@ public class ThumbnailComponent extends SupportPage {
         return name.getText();
     }
 
-    public void openProductDetails() {
+    public void openProductDetailsPage() {
         clickIt(name);
     }
 
 
-    public Product getProduct() {
+    public Product toProduct() {
         var product = new Product();
         product.setName(getName());
         return product;

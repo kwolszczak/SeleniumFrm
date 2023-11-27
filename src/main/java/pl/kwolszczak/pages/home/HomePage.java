@@ -21,13 +21,13 @@ public class HomePage extends CommonPage {
         return index;
     }
 
-    public Product getRandomProduct() {
+    public Product toRandomProduct() {
         var index = randomProductIndex();
         return thumbnails.getProductsModels().get(index);
     }
 
     public ProductPage openRandomProductPage() {
-        thumbnails.getProducts().get(randomProductIndex()).openProductDetails();
+        thumbnails.getProducts().get(randomProductIndex()).openProductDetailsPage();
         return new ProductPage(driver);
     }
 }

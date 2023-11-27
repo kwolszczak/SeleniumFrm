@@ -31,7 +31,7 @@ public class ThumbnailListComponent extends CommonPage {
     }
 
     public List<Product> getProductsModels() {
-        return thumbnailsComponents.stream().map(ThumbnailComponent::getProduct).toList();
+        return thumbnailsComponents.stream().map(ThumbnailComponent::toProduct).toList();
     }
 
 

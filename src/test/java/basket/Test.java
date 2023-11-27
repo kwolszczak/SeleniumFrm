@@ -1,8 +1,10 @@
 package basket;
 
 import base.BaseTest;
+import org.assertj.core.api.Assertions;
 import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.UserFactory;
+import pl.kwolszczak.pages.basket.CartPage;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
 import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
@@ -17,7 +19,7 @@ public class Test extends BaseTest {
         int quantityOfProduct = new Random().nextInt(1,5);
         Basket basket = new Basket();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             at(HomePage.class)
                     .openRandomProductPage();
             at(ProductPage.class)
@@ -29,7 +31,23 @@ public class Test extends BaseTest {
         }
 
         driver.get(UrlProvider.CART);
-        Basket actualBasket = new Basket();
+
+        var actualBasket = at(CartPage.class)
+                .getBasketModel();
+
+        Assertions.assertThat(actualBasket)
+                        .usingRecursiveComparison()
+                                .isEqualTo(basket);
+
+        System.out.println("total price in actualbasket: "+basket.getTotalPrice());
+        for (var p: actualBasket.getProducts()) {
+            System.out.println("--------------");
+            System.out.println("product name: "+p.getProduct().getName());
+            System.out.println("total product price: "+p.getTotalPrice());
+            System.out.println("quantity: "+ p.getQuantity());
+            System.out.println(" price: "+p.getProduct().getPrice());
+            System.out.println("--------------");
+        }
 
 
         System.out.println("total price in basket: "+basket.getTotalPrice());

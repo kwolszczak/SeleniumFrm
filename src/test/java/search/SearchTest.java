@@ -13,7 +13,7 @@ class SearchTest extends BaseTest {
     void searchTest() {
 
         var randomProduct = at(HomePage.class)
-                .getRandomProduct();
+                .toRandomProduct();
 
         var foundedProducts = at(HomePage.class)
                 .search(randomProduct.getName())
