@@ -43,14 +43,18 @@ public class CommonPage extends SupportPage {
     }
 
 
+    public HomePage goHomePage(){
+        header.goHomePage();
+        return new HomePage(driver);
+    }
+
     public List<String> getSearchHints() {
         wait.until(ExpectedConditions.visibilityOfAllElements(searchHints));
         return searchHints.stream().map(WebElement::getText).toList();
     }
 
-    public HomePage goHomePage(){
-        header.goHomePage();
-        return new HomePage(driver);
+    public int getNumberOfProductsInBasket() {
+        return header.getNumberOfProductsInBasket();
     }
 
 }

@@ -17,12 +17,15 @@ public class HeaderComponent extends Component {
     @FindBy(css = "img.logo.img-responsive")
     private WebElement homeBtn;
 
+    @FindBy(css = "span.cart-products-count")
+    private WebElement cartBtn;
+
 
     public HeaderComponent(WebDriver driver, WebElement parent) {
         super(driver, parent);
     }
 
-    public void search(String product, boolean click) {
+    protected void search(String product, boolean click) {
         if (click) {
             fillIt(searchInp, product);
             clickIt(searchBtn);
@@ -31,7 +34,12 @@ public class HeaderComponent extends Component {
         }
     }
 
-    public void goHomePage() {
+    protected void goHomePage() {
         clickIt(homeBtn);
+    }
+
+    protected int getNumberOfProductsInBasket() {
+        return Integer.parseInt(cartBtn.getText().replaceAll("\\D",""));
+
     }
 }

@@ -62,6 +62,14 @@ public class BasketTest extends BaseTest {
         Assertions.assertThat(actualBasket)
                 .usingRecursiveComparison()
                 .isEqualTo(basket);
+
+        at(ProductPopUpPage.class)
+                .continueShopping();
+
+        int numberOfProducts = at(ProductPage.class)
+                .getNumberOfProductsInBasket();
+
+        Assertions.assertThat(numberOfProducts).isEqualTo(quantity);
     }
 
     @RepeatedTest(3)
