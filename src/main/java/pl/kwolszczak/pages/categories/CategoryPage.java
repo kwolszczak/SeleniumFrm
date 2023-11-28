@@ -31,10 +31,6 @@ public class CategoryPage extends CommonPage {
         }
     }
 
-    public List<Product> getProducts(){
-        return thumbnails.getProductsModels();
-    }
-
     public int getNumberOfProducts() {
         return  Integer.parseInt(numberOfProducts.getText().replaceAll("[^0-9]","").trim());
     }
@@ -52,8 +48,12 @@ public class CategoryPage extends CommonPage {
         return this;
     }
 
-    public CategoryPage setPrice(int downPrice, int upPrice) throws InterruptedException {
+    public CategoryPage setPrice(int downPrice, int upPrice)  {
         filter.setPrice(downPrice, upPrice);
         return this;
+    }
+
+    public List<Product> getProductsModels(){
+        return thumbnails.getProductsModels();
     }
 }

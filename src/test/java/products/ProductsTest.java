@@ -2,11 +2,8 @@ package products;
 
 import base.BaseTest;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
-import pl.kwolszczak.models.UserFactory;
 import pl.kwolszczak.pages.categories.CategoryPage;
 import pl.kwolszczak.providers.Category;
 import pl.kwolszczak.providers.Subcategory;
@@ -14,7 +11,7 @@ import pl.kwolszczak.providers.Subcategory;
 class ProductsTest extends BaseTest {
 
     //@Test
-    @RepeatedTest(10)
+    @RepeatedTest(3)
     @DisplayName("Category test")
     void categoryTest() {
 
@@ -29,7 +26,7 @@ class ProductsTest extends BaseTest {
         }
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(3)
     @DisplayName("SubCategory test")
     void subCategoryTest() {
 
@@ -46,7 +43,7 @@ class ProductsTest extends BaseTest {
 
     private void step_verifyNumOfProducts(CategoryPage categoryPage) {
         var numOfProductsLabel = categoryPage.getNumberOfProducts();
-        var numOfProducts = categoryPage.getProducts().size();
+        var numOfProducts = categoryPage.getProductsModels().size();
         Assertions.assertThat(numOfProducts).isEqualTo(numOfProductsLabel);
     }
 

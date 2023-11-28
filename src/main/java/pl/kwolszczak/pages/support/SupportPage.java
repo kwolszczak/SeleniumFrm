@@ -2,44 +2,79 @@ package pl.kwolszczak.pages.support;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pl.kwolszczak.models.BasketLine;
+import pl.kwolszczak.models.Product;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 public class SupportPage {
+
     protected WebDriver driver;
     protected Random random = new Random();
     protected WebDriverWait wait;
-    private Duration timeout;
+    protected Actions actions;
 
-    public SupportPage(WebDriver driver) {
+    protected SupportPage(WebDriver driver) {
         init(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public SupportPage(WebDriver driver, WebElement parent) {
+    protected SupportPage(WebDriver driver, WebElement parent) {
         init(driver);
         PageFactory.initElements(new DefaultElementLocatorFactory(parent), this);
     }
 
     private void init(WebDriver driver) {
+        Duration timeout = Duration.ofSeconds(Integer.parseInt(System.getProperty("environment.webElementTimeout")));
         this.driver = driver;
-        this.timeout = Duration.ofSeconds(Integer.parseInt(System.getProperty("environment.webElementTimeout")));
         this.wait = new WebDriverWait(driver, timeout);
+        this.actions = new Actions(driver);
     }
 
-    public void fill(WebElement element, String value) {
+    protected void fillIt(WebElement element, String value) {
         element.clear();
         element.sendKeys(value);
     }
 
-    public void clickIt(WebElement element) {
+    protected void clickIt(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
+    }
+
+    protected BasketLine toBasketLineModel(WebElement name, WebElement quantity, WebElement price) {
+        var product = new Product(getName(name), getPrice(price));
+        return new BasketLine(product, getQuantity(quantity));
+    }
+
+    private Double getPrice(WebElement we) {
+        return Double.parseDouble(we.getText().replaceAll("[$]", "").trim());
+    }
+
+    private int getQuantity(WebElement we) {
+        return Integer.parseInt(we.getAttribute("value"));
+    }
+
+    private String getName(WebElement we) {
+        return we.getText();
+    }
+
+
+    protected <T extends Component> List<T> setComponents(Class<T> componentType, List<WebElement> webElements) {
+       return  webElements.stream().map(we -> {
+            try {
+                return componentType.getDeclaredConstructor(WebDriver.class, WebElement.class).newInstance(driver, we);
+            } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        }).toList();
     }
 
 }

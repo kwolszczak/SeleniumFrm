@@ -4,9 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Product;
+import pl.kwolszczak.pages.support.Component;
 import pl.kwolszczak.pages.support.SupportPage;
 
-public class ThumbnailComponent extends SupportPage {
+public class ThumbnailComponent extends Component {
 
     @FindBy(css = "div.product-description a")
     private WebElement name;

@@ -3,15 +3,17 @@ package pl.kwolszczak.providers;
 import java.util.List;
 
 public class UrlProvider {
-    private static String appUrl = System.getProperty("environment.url");
-    public static final String CART = appUrl + "?controller=cart&action=show";
-    public static final String CLOTHES = appUrl + "?id_category=3&controller=category&id_lang=2";
-    public static final String CLOTHS_MEN = appUrl + "?id_category=4&controller=category&id_lang=2";
-    public static final String CLOTHS_WOMEN = appUrl + "?id_category=5&controller=category&id_lang=2";
-    public static final String ACCESSORIES = appUrl + "?id_category=6&controller=category&id_lang=2";
-    public static final String ACCESSORIES_STATIONERY = appUrl + "?id_category=7&controller=category&id_lang=2";
-    public static final String ACCESSORIES_HOME = appUrl + "?id_category=8&controller=category&id_lang=2";
-    public static final String ART = appUrl + "?id_category=9&controller=category&id_lang=2";
+    private static final String APP_URL = System.getProperty("environment.url");
+    private static final String CONTROLLER_CATEGORY = "&controller=category&id_lang=2";
 
-    public static List<String> CATEGORIES = List.of(CLOTHES, ACCESSORIES, ART);
+    public static final String CART = APP_URL + "?controller=cart&action=show";
+    public static final String ART = APP_URL + "?id_category=9" + CONTROLLER_CATEGORY;
+    public static final String CLOTHES = APP_URL + "?id_category=3" + CONTROLLER_CATEGORY;
+    public static final String CLOTHES_MEN = APP_URL + "?id_category=4" + CONTROLLER_CATEGORY;
+    public static final String CLOTHES_WOMEN = APP_URL + "?id_category=5" + CONTROLLER_CATEGORY;
+    public static final String ACCESSORIES = APP_URL + "?id_category=6" + CONTROLLER_CATEGORY;
+    public static final String ACCESSORIES_HOME = APP_URL + "?id_category=8" + CONTROLLER_CATEGORY;
+    public static final String ACCESSORIES_STATIONERY = APP_URL + "?id_category=7" + CONTROLLER_CATEGORY;
+
+    private UrlProvider() {}
 }

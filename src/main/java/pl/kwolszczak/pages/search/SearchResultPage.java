@@ -8,14 +8,15 @@ import pl.kwolszczak.pages.common.ThumbnailListComponent;
 import java.util.List;
 
 public class SearchResultPage extends CommonPage {
-    private ThumbnailListComponent thumbnails;
+
+    private final ThumbnailListComponent thumbnails;
 
     public SearchResultPage(WebDriver driver) {
         super(driver);
         thumbnails = new ThumbnailListComponent(driver);
     }
 
-    public List<Product> getProducts() {
+    public List<Product> getProductsModel() {
         return thumbnails.getProductsModels();
     }
 

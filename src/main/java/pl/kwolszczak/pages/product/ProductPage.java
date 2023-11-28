@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.BasketLine;
-import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
 import pl.kwolszczak.pages.common.CommonPage;
+import pl.kwolszczak.pages.support.BasketLineQueryable;
 
-public class ProductPage extends CommonPage {
+public class ProductPage extends CommonPage implements BasketLineQueryable {
 
     @FindBy(css = "h1[itemprop='name']")
     private WebElement name;
@@ -26,31 +26,19 @@ public class ProductPage extends CommonPage {
 
     public ProductPopUpPage addToBasket(int quantity, Basket basket) {
         setQuantityInp(quantity);
-        basket.addBasketLine(toBasketLine());
+        basket.addBasketLine(toBasketLineModel());
         clickIt(addToCartBtn);
 
         return new ProductPopUpPage(driver);
     }
 
-    private void setQuantityInp(int quantityInp) {
-       fill(this.quantityInp, String.valueOf(quantityInp));
+    private void setQuantityInp(int quantity) {
+        fillIt(this.quantityInp, String.valueOf(quantity));
     }
 
-    private Double getPrice() {
-        return Double.parseDouble(price.getAttribute("content"));
+    @Override
+    public BasketLine toBasketLineModel() {
+        return toBasketLineModel(name, quantityInp, price);
     }
 
-    private int getQuantity() {
-        return Integer.parseInt(quantityInp.getAttribute("value"));
-    }
-
-    private String getName() {
-        return name.getText();
-    }
-
-   // @Override
-    public BasketLine toBasketLine() {
-        var product = new Product(getName(), getPrice());
-        return new BasketLine(product, getQuantity());
-    }
 }

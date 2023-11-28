@@ -8,26 +8,25 @@ import pl.kwolszczak.pages.product.ProductPage;
 
 public class HomePage extends CommonPage {
 
-    private ThumbnailListComponent thumbnails;
+    private final ThumbnailListComponent thumbnails;
 
     public HomePage(WebDriver driver) {
         super(driver);
         thumbnails = new ThumbnailListComponent(driver);
     }
 
-    private int randomProductIndex(){
-        int size = thumbnails.getProducts().size();
-        int index = random.nextInt(0, size);
-        return index;
+    public ProductPage openRandomProductPage() {
+        thumbnails.getProducts().get(randomProductIndex()).openProductDetailsPage();
+        return new ProductPage(driver);
     }
 
-    public Product toRandomProduct() {
+    public Product toRandomProductModel() {
         var index = randomProductIndex();
         return thumbnails.getProductsModels().get(index);
     }
 
-    public ProductPage openRandomProductPage() {
-        thumbnails.getProducts().get(randomProductIndex()).openProductDetailsPage();
-        return new ProductPage(driver);
+    private int randomProductIndex() {
+        int size = thumbnails.getProducts().size();
+        return random.nextInt(0, size);
     }
 }

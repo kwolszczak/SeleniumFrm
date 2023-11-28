@@ -6,15 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pl.kwolszczak.pages.support.SupportPage;
+import pl.kwolszczak.pages.support.Component;
 
-import java.util.List;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.awaitility.Awaitility.await;
-
-public class FilterComponent extends SupportPage {
-
+public class FilterComponent extends Component {
 
     @FindBy(css = "p[id *= 'facet_label']")
     private WebElement priceLabel;
@@ -33,7 +27,7 @@ public class FilterComponent extends SupportPage {
         super(driver, parent);
     }
 
-    public FilterComponent setPrice(double from, double to) {
+    protected void setPrice(double from, double to) {
 
         while (getPriceFrom() < from) {
             leftBtn.sendKeys(Keys.ARROW_RIGHT);
@@ -42,7 +36,6 @@ public class FilterComponent extends SupportPage {
             wait.until(ExpectedConditions.invisibilityOf(spinner));
         }
 
-
         while (getPriceTo() > to) {
             rightBtn.sendKeys(Keys.ARROW_LEFT);
 
@@ -50,28 +43,23 @@ public class FilterComponent extends SupportPage {
             wait.until(ExpectedConditions.invisibilityOf(spinner));
         }
 
-        return this;
     }
 
-    public FilterComponent clearAllFilters() {
+    protected void clearAllFilters() {
         clearAll.click();
         wait.until(ExpectedConditions.refreshed(ExpectedConditions.invisibilityOf(
                 clearAll
         )));
-        return this;
     }
 
     private double getPriceFrom() {
-
         double priceFrom = Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]", ""));
         return priceFrom;
     }
 
     private double getPriceTo() {
-
         double priceTo = Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]", ""));
         return priceTo;
     }
-
 
 }

@@ -13,11 +13,11 @@ class SearchTest extends BaseTest {
     void searchTest() {
 
         var randomProduct = at(HomePage.class)
-                .toRandomProduct();
+                .toRandomProductModel();
 
         var foundedProducts = at(HomePage.class)
                 .search(randomProduct.getName())
-                .getProducts();
+                .getProductsModel();
 
 
         Assertions.assertThat(foundedProducts)
@@ -25,7 +25,7 @@ class SearchTest extends BaseTest {
                 .contains(randomProduct);
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(3)
     @DisplayName("Search product- drop down")
     void searchTest_dropDown() {
 

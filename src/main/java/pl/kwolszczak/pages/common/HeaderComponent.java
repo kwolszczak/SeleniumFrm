@@ -3,12 +3,10 @@ package pl.kwolszczak.pages.common;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pl.kwolszczak.pages.home.HomePage;
+import pl.kwolszczak.pages.support.Component;
 import pl.kwolszczak.pages.support.SupportPage;
 
-import java.util.List;
-
-public class HeaderComponent extends SupportPage {
+public class HeaderComponent extends Component {
 
     @FindBy(css = "div#search_widget input[type='text']")
     private WebElement searchInp;
@@ -24,14 +22,13 @@ public class HeaderComponent extends SupportPage {
         super(driver, parent);
     }
 
-    public HeaderComponent search(String product, boolean click) {
+    public void search(String product, boolean click) {
         if (click) {
-            fill(searchInp, product);
+            fillIt(searchInp, product);
             clickIt(searchBtn);
         } else {
-            fill(searchInp, product);
+            fillIt(searchInp, product);
         }
-        return this;
     }
 
     public void goHomePage() {

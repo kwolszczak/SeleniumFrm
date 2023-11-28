@@ -17,7 +17,11 @@ public class ThumbnailListComponent extends CommonPage {
 
     public ThumbnailListComponent(WebDriver driver) {
         super(driver);
-        setThumbnails();
+        // //1
+        //setThumbnailsComponents();
+
+        //2
+        thumbnailsComponents = setComponents(ThumbnailComponent.class, products);
     }
 
     public List<ThumbnailComponent> getProducts() {
@@ -25,14 +29,14 @@ public class ThumbnailListComponent extends CommonPage {
     }
 
 
-    private void setThumbnails() {
-        thumbnailsComponents = new LinkedList<>();
-        thumbnailsComponents = products.stream().map(we -> new ThumbnailComponent(driver, we)).toList();
-    }
+//    //1
+//    private void setThumbnailsComponents() {
+//        thumbnailsComponents = new LinkedList<>();
+//        thumbnailsComponents = products.stream().map(we -> new ThumbnailComponent(driver, we)).toList();
+//    }
 
     public List<Product> getProductsModels() {
         return thumbnailsComponents.stream().map(ThumbnailComponent::toProduct).toList();
     }
-
 
 }
