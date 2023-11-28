@@ -10,12 +10,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import pl.kwolszczak.pages.support.SupportPage;
 
+import java.util.Random;
+
 public class BaseTest {
     protected WebDriver driver;
+    protected static Random random;
 
     @BeforeAll
     static void setConf() {
         AppConf conf = AppConf.getInstance();
+        random = new Random();
     }
 
     @BeforeEach

@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.common.CommonPage;
 import pl.kwolszczak.pages.common.ThumbnailListComponent;
+import pl.kwolszczak.pages.product.ProductPage;
 
 import java.util.List;
 
@@ -29,6 +30,16 @@ public class CategoryPage extends CommonPage {
         if (isFilterMenuDisplayed()) {
             filter = new FilterComponent(driver, filterMenu);
         }
+    }
+
+    public ProductPage openRandomProductPage() {
+        openRandomProductPage(thumbnails);
+        return new ProductPage(driver);
+    }
+
+    public ProductPage openProductPage(String name) {
+        openProductPage(thumbnails, name);
+        return new ProductPage(driver);
     }
 
     public int getNumberOfProducts() {

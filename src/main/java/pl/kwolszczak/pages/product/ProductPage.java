@@ -25,15 +25,16 @@ public class ProductPage extends CommonPage implements BasketLineQueryable {
     }
 
     public ProductPopUpPage addToBasket(int quantity, Basket basket) {
-        setQuantityInp(quantity);
+        setQuantity(quantity);
         basket.addBasketLine(toBasketLineModel());
         clickIt(addToCartBtn);
 
         return new ProductPopUpPage(driver);
     }
 
-    private void setQuantityInp(int quantity) {
+    public ProductPage setQuantity(int quantity) {
         fillIt(this.quantityInp, String.valueOf(quantity));
+        return this;
     }
 
     @Override

@@ -8,18 +8,19 @@ import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.UserFactory;
 import pl.kwolszczak.pages.basket.CartPage;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
+import pl.kwolszczak.pages.categories.CategoryPage;
 import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.providers.UrlProvider;
 
 import java.util.Random;
 
-public class Test extends BaseTest {
+public class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Generic - add product to basket")
     void addProductToBasket_generic() throws InterruptedException {
-        int quantityOfProduct = new Random().nextInt(1, 5);
+        int quantityOfProduct = random.nextInt(1, 8);
         Basket basket = new Basket();
 
         for (int i = 0; i < 4; i++) {
@@ -32,7 +33,6 @@ public class Test extends BaseTest {
             at(ProductPage.class)
                     .goHomePage();
         }
-
         driver.get(UrlProvider.CART);
 
         var actualBasket = at(CartPage.class)
@@ -45,7 +45,17 @@ public class Test extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Add product to basket")
-    void addProductToBasket() {
+    void addProductToBasket() throws InterruptedException {
+        var searchedProduct = "THE BEST IS YET POSTER";
+        var quantity = 3;
+        var basket = new Basket();
+        driver.get(UrlProvider.ART);
+        at(CategoryPage.class)
+                .openProductPage(searchedProduct);
+        at(ProductPage.class)
+                .addToBasket(quantity,basket)
+                ;
+        Thread.sleep(3000);
 
         var us1 = UserFactory.getAlreadyRegistredUser();
         var us2 = UserFactory.getRandomUser();

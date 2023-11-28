@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pl.kwolszczak.models.BasketLine;
 import pl.kwolszczak.models.Product;
+import pl.kwolszczak.pages.common.ThumbnailListComponent;
+import pl.kwolszczak.pages.product.ProductPage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
@@ -66,6 +68,16 @@ public class SupportPage {
         return we.getText();
     }
 
+    protected void openRandomProductPage(ThumbnailListComponent thumbnails) {
+        thumbnails.getProducts().get(randomProductIndex(thumbnails)).openProductDetailsPage();
+    }
+    public void openProductPage(ThumbnailListComponent thumbnails,String name) {
+        thumbnails.getProduct(name).openProductDetailsPage();
+    }
+    protected int randomProductIndex(ThumbnailListComponent thumbnails) {
+        int size = thumbnails.getProducts().size();
+        return random.nextInt(0, size);
+    }
 
     protected <T extends Component> List<T> setComponents(Class<T> componentType, List<WebElement> webElements) {
        return  webElements.stream().map(we -> {

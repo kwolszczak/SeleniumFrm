@@ -28,6 +28,10 @@ public class ThumbnailListComponent extends CommonPage {
         return thumbnailsComponents;
     }
 
+    public ThumbnailComponent getProduct(String name) {
+       return thumbnailsComponents.stream().filter(tc ->tc.getName().equals(name)).findFirst().orElse(null);
+    }
+
 
 //    //1
 //    private void setThumbnailsComponents() {

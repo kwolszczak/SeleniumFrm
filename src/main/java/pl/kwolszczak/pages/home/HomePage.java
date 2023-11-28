@@ -16,17 +16,14 @@ public class HomePage extends CommonPage {
     }
 
     public ProductPage openRandomProductPage() {
-        thumbnails.getProducts().get(randomProductIndex()).openProductDetailsPage();
+        openRandomProductPage(thumbnails);
         return new ProductPage(driver);
     }
 
     public Product toRandomProductModel() {
-        var index = randomProductIndex();
+        var index = randomProductIndex(thumbnails);
         return thumbnails.getProductsModels().get(index);
     }
 
-    private int randomProductIndex() {
-        int size = thumbnails.getProducts().size();
-        return random.nextInt(0, size);
-    }
+
 }
