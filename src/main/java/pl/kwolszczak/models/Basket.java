@@ -28,6 +28,7 @@ public class Basket {
             products.add(basketLine);
         }
         totalPrice += basketLine.getTotalPrice();
+        totalPrice =Math.round(totalPrice * 100.0) / 100.0;
     }
 
     public List<BasketLine> getProducts() {

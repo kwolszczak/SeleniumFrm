@@ -21,7 +21,7 @@ public class BasketTest extends BaseTest {
         int quantityOfProduct = random.nextInt(1, 8);
         Basket basket = new Basket();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             at(HomePage.class)
                     .openRandomProductPage();
             at(ProductPage.class)
