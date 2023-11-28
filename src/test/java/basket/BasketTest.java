@@ -13,8 +13,6 @@ import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.providers.UrlProvider;
 
-import java.util.Random;
-
 public class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
@@ -45,17 +43,30 @@ public class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Add product to basket")
-    void addProductToBasket() throws InterruptedException {
+    void addProductToBasket() {
+
         var searchedProduct = "THE BEST IS YET POSTER";
         var quantity = 3;
         var basket = new Basket();
+
         driver.get(UrlProvider.ART);
         at(CategoryPage.class)
                 .openProductPage(searchedProduct);
+
         at(ProductPage.class)
-                .addToBasket(quantity,basket)
-                ;
-        Thread.sleep(3000);
+                .addToBasket(quantity, basket);
+
+        var actualBasket = at(ProductPopUpPage.class)
+                .toBasketModel();
+
+        Assertions.assertThat(actualBasket)
+                .usingRecursiveComparison()
+                .isEqualTo(basket);
+    }
+
+    @RepeatedTest(3)
+    @DisplayName("Remove")
+    void remove() {
 
         var us1 = UserFactory.getAlreadyRegistredUser();
         var us2 = UserFactory.getRandomUser();

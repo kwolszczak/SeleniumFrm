@@ -61,6 +61,9 @@ public class SupportPage {
     }
 
     private int getQuantity(WebElement we) {
+        if (we.getAttribute("value") == null) {
+            return Integer.parseInt(we.getText().replaceAll("\\D",""));
+        }
         return Integer.parseInt(we.getAttribute("value"));
     }
 
@@ -71,7 +74,7 @@ public class SupportPage {
     protected void openRandomProductPage(ThumbnailListComponent thumbnails) {
         thumbnails.getProducts().get(randomProductIndex(thumbnails)).openProductDetailsPage();
     }
-    public void openProductPage(ThumbnailListComponent thumbnails,String name) {
+    protected void openProductPage(ThumbnailListComponent thumbnails,String name) {
         thumbnails.getProduct(name).openProductDetailsPage();
     }
     protected int randomProductIndex(ThumbnailListComponent thumbnails) {
