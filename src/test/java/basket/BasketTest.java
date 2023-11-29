@@ -7,9 +7,11 @@ import org.junit.jupiter.api.RepeatedTest;
 import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.models.UserFactory;
+import pl.kwolszczak.pages.account.SigningPage;
 import pl.kwolszczak.pages.basket.CartPage;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
 import pl.kwolszczak.pages.categories.CategoryPage;
+import pl.kwolszczak.pages.checkout.CheckoutPage;
 import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.providers.UrlProvider;
@@ -18,10 +20,11 @@ public class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Generic - add product to basket")
-    void addProductToBasket_generic() throws InterruptedException {
-        int quantityOfProduct = random.nextInt(1, 8);
-        Basket basket = new Basket();
+    void addProductToBasket_generic()  {
 
+        int quantityOfProduct = random.nextInt(1, 8);
+
+        Basket basket = new Basket();
         for (int i = 0; i < 10; i++) {
             at(HomePage.class)
                     .openRandomProductPage();
@@ -48,8 +51,8 @@ public class BasketTest extends BaseTest {
 
         var searchedProduct = "THE BEST IS YET POSTER";
         var quantity = 3;
-        var basket = new Basket();
 
+        var basket = new Basket();
         driver.get(UrlProvider.ART);
         at(CategoryPage.class)
                 .openProductPage(searchedProduct);
@@ -75,11 +78,13 @@ public class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Remove")
-    void removeProduct() throws InterruptedException {
+    void removeProduct()  {
+
         int quantityOfProduct = 1;
+        String emptyBasketInfo = "There are no more items in your cart";
+
         Basket basket = new Basket();
         Product[] randomProducts = new Product[2];
-
         for (int i = 0; i < 2; i++) {
             at(HomePage.class)
                     .openRandomProductPage();
@@ -113,16 +118,38 @@ public class BasketTest extends BaseTest {
                 .isEqualTo(basket.getTotalPrice())
                 .isEqualTo(0.00);
 
+        var actualBasketInfo = at(CartPage.class)
+                .getInfoAboutEmptyBasket();
+        Assertions.assertThat(actualBasketInfo).isEqualTo(emptyBasketInfo);
 
 
     }
 
     @RepeatedTest(3)
-    @DisplayName("Final test")
-    void finalTEst() throws InterruptedException {
-        var us1 = UserFactory.getAlreadyRegistredUser();
+    @DisplayName("Checkout test")
+    void checkoutTest() throws InterruptedException {
+        var registredUser = UserFactory.getAlreadyRegistredUser();
+        var productName = "THE BEST IS YET POSTER";
+        var quantity = 1;
+        var initialBasket = new Basket();
+
+        driver.get(UrlProvider.SIGN_IN);
+        at(SigningPage.class)
+                .login(registredUser.getEmail(), registredUser.getPassword())
+                .goHomePage();
+        at(HomePage.class)
+                .openProductPage(productName);
+        at(ProductPage.class)
+                .addToBasket(quantity,initialBasket);
+        at(ProductPopUpPage.class)
+                .proceedToCheckout();
+        at(CartPage.class)
+                .proceedToCheckout();
+     //   at(CheckoutPage.class).getNumberOfProductsInBasket();
+        Thread.sleep(4000);
+
         var us2 = UserFactory.getRandomUser();
-        System.out.println(us1);
+        System.out.println(registredUser);
         System.out.println(us2);
     }
 }

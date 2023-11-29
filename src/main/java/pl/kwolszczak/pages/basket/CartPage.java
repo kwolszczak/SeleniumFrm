@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Basket;
 import pl.kwolszczak.models.BasketLine;
+import pl.kwolszczak.pages.checkout.CheckoutPage;
 import pl.kwolszczak.pages.common.CommonPage;
 import pl.kwolszczak.pages.support.BasketQueryable;
 
@@ -17,6 +18,12 @@ public class CartPage extends CommonPage implements BasketQueryable {
 
     @FindBy(css = "div#cart-subtotal-products span.value")
     private WebElement totalPrice;
+
+    @FindBy(css = "span.no-items")
+    private WebElement emptyBasketInfo;
+
+    @FindBy(css = "div.card.cart-summary a.btn.btn-primary")
+    private WebElement proceedToCheckoutBtn;
 
 
     private List<BasketLineComponent> basketLineComponents;
@@ -35,10 +42,17 @@ public class CartPage extends CommonPage implements BasketQueryable {
 //        basketLineComponents = basket.stream().map(we -> new BasketLineComponent(driver, we)).toList();
 //    }
 
-    public double getTotalPrice() {
-        // wait.until(ExpectedConditions.visibilityOfAllElements(totalPrice));
+    public String getInfoAboutEmptyBasket() {
+        return emptyBasketInfo.getText().trim();
+    }
 
+    public double getTotalPrice() {
         return getPrice(totalPrice);
+    }
+
+    public CheckoutPage proceedToCheckout() {
+        clickIt(proceedToCheckoutBtn);
+        return new CheckoutPage(driver);
     }
 
     public CartPage removeProduct(String name, Basket basket) {
@@ -46,6 +60,7 @@ public class CartPage extends CommonPage implements BasketQueryable {
         int basketSize = basketLineComponents.size();
         for (var basketLine : basketLineComponents) {
             if (basketLine.toBasketLineModel().getProduct().getName().equals(name)) {
+
                 basket.removeBasketLine(basketLine.toBasketLineModel());
                 basketLine.removeProduct();
 
@@ -53,14 +68,9 @@ public class CartPage extends CommonPage implements BasketQueryable {
                     this.basketLineComponents = this.basket.stream().map(we -> new BasketLineComponent(driver, we)).toList();
                     return basketLineComponents.size() < basketSize;
                 });
-
                 break;
             }
         }
-
-
-
-        System.out.println(basketLineComponents.size());
         return this;
     }
 

@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pl.kwolszczak.models.BasketLine;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.common.ThumbnailListComponent;
-import pl.kwolszczak.pages.product.ProductPage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
@@ -41,7 +40,7 @@ public class SupportPage {
         this.actions = new Actions(driver);
     }
 
-    protected void fillIt(WebElement element, String value) {
+    protected void fillIn(WebElement element, String value) {
         element.clear();
         element.sendKeys(value);
     }

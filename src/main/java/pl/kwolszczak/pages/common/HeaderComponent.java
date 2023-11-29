@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.pages.support.Component;
-import pl.kwolszczak.pages.support.SupportPage;
 
 public class HeaderComponent extends Component {
 
@@ -27,10 +26,10 @@ public class HeaderComponent extends Component {
 
     protected void search(String product, boolean click) {
         if (click) {
-            fillIt(searchInp, product);
+            fillIn(searchInp, product);
             clickIt(searchBtn);
         } else {
-            fillIt(searchInp, product);
+            fillIn(searchInp, product);
         }
     }
 

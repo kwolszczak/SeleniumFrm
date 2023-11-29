@@ -35,7 +35,6 @@ class SearchTest extends BaseTest {
                 .search(productName, false)
                 .getSearchHints();
 
-
         Assertions.assertThat(searchHints)
                 .anySatisfy(item -> Assertions.assertThat(item).contains(productName));
     }

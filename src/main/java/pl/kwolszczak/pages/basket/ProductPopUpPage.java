@@ -17,8 +17,11 @@ import java.util.Set;
 
 public class ProductPopUpPage extends CommonPage implements BasketLineQueryable, BasketQueryable {
 
-    @FindBy(css = "button.btn.btn-secondary")
+    @FindBy(css = "div.cart-content-btn button.btn.btn-secondary")
     private WebElement continueShoppingBtn;
+
+    @FindBy(css = "div.cart-content-btn a")
+    private WebElement proceedToCheckoutBtn;
 
     @FindBy(css = "h6.h6.product-name")
     private WebElement name;
@@ -36,6 +39,11 @@ public class ProductPopUpPage extends CommonPage implements BasketLineQueryable,
     public ProductPage continueShopping() {
         clickIt(continueShoppingBtn);
         return new ProductPage(driver);
+    }
+
+    public CartPage proceedToCheckout() {
+        clickIt(proceedToCheckoutBtn);
+        return new CartPage(driver);
     }
 
     @Override

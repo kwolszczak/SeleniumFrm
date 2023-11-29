@@ -11,6 +11,7 @@ public class FiltersTest extends BaseTest {
     // @Test
     @RepeatedTest(3)
     void filterTest()  {
+
         driver.get(Category.ACCESSORIES.getUrl());
         var expectedNumOfProducts = at(CategoryPage.class)
                 .getNumberOfProducts();

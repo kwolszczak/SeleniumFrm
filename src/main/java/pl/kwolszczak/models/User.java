@@ -1,5 +1,8 @@
 package pl.kwolszczak.models;
 
+import lombok.Getter;
+
+@Getter
 public class User {
 
     private String firstName;

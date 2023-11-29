@@ -33,7 +33,7 @@ public class ProductPage extends CommonPage implements BasketLineQueryable {
     }
 
     public ProductPage setQuantity(int quantity) {
-        fillIt(this.quantityInp, String.valueOf(quantity));
+        fillIn(this.quantityInp, String.valueOf(quantity));
         return this;
     }
 
