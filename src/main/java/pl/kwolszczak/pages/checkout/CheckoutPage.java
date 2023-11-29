@@ -7,14 +7,18 @@ import pl.kwolszczak.pages.common.CommonPage;
 
 public class CheckoutPage extends CommonPage {
 
-    @FindBy(css = "")
-    private WebElement emailInp;
-    @FindBy(css = "")
-    private WebElement passwordInp;
-    @FindBy(css = "")
-    private WebElement signinBtn;
+    private AddressComponent addressComponent;
+
+    @FindBy(css = "section#checkout-addresses-step")
+    private WebElement addressSection;
+
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
+        addressComponent = new AddressComponent(driver,addressSection);
+    }
+
+    public void changeBillingAddress(String address, String city, String zipcode,String state) {
+        addressComponent.changeBillingAddress(address,city,zipcode,state);
     }
 }

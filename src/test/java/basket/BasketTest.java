@@ -121,8 +121,6 @@ public class BasketTest extends BaseTest {
         var actualBasketInfo = at(CartPage.class)
                 .getInfoAboutEmptyBasket();
         Assertions.assertThat(actualBasketInfo).isEqualTo(emptyBasketInfo);
-
-
     }
 
     @RepeatedTest(3)
@@ -145,11 +143,9 @@ public class BasketTest extends BaseTest {
                 .proceedToCheckout();
         at(CartPage.class)
                 .proceedToCheckout();
-     //   at(CheckoutPage.class).getNumberOfProductsInBasket();
+   at(CheckoutPage.class)
+           .changeBillingAddress("posag", "WArsawa", "12345","Idaho" );
         Thread.sleep(4000);
 
-        var us2 = UserFactory.getRandomUser();
-        System.out.println(registredUser);
-        System.out.println(us2);
     }
 }
