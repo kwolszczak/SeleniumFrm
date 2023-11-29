@@ -31,6 +31,15 @@ public class Basket {
         totalPrice =Math.round(totalPrice * 100.0) / 100.0;
     }
 
+    public void removeBasketLine(BasketLine basketLine) {
+        int index;
+        if (( index= products.indexOf(basketLine)) != -1){
+            products.remove(basketLine);
+            totalPrice -= basketLine.getTotalPrice();
+            totalPrice =Math.round(totalPrice * 100.0) / 100.0;
+        }
+    }
+
     public List<BasketLine> getProducts() {
         return products;
     }

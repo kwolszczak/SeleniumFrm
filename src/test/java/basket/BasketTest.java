@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import pl.kwolszczak.models.Basket;
+import pl.kwolszczak.models.Product;
 import pl.kwolszczak.models.UserFactory;
 import pl.kwolszczak.pages.basket.CartPage;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
@@ -74,8 +75,51 @@ public class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Remove")
-    void remove() {
+    void removeProduct() throws InterruptedException {
+        int quantityOfProduct = 1;
+        Basket basket = new Basket();
+        Product[] randomProducts = new Product[2];
 
+        for (int i = 0; i < 2; i++) {
+            at(HomePage.class)
+                    .openRandomProductPage();
+            at(ProductPage.class)
+                    .addToBasket(quantityOfProduct, basket);
+          randomProducts[i] = at(ProductPopUpPage.class)
+                    .toBasketLineModel().getProduct();
+            at(ProductPopUpPage.class)
+                    .continueShopping();
+            at(ProductPage.class)
+                    .goHomePage();
+        }
+
+        var productOne = randomProducts[0];
+        var productTwo = randomProducts[1];
+
+        driver.get(UrlProvider.CART);
+        var actualTotalPrice = at(CartPage.class)
+                .getTotalPrice();
+        Assertions.assertThat(actualTotalPrice).isEqualTo(basket.getTotalPrice());
+
+        var newTotalPrice =at(CartPage.class)
+                .removeProduct(productOne.getName(),basket)
+                .getTotalPrice();
+        Assertions.assertThat(newTotalPrice).isEqualTo(basket.getTotalPrice());
+
+        var zeroPrice =at(CartPage.class)
+                .removeProduct(productTwo.getName(),basket)
+                .getTotalPrice();
+        Assertions.assertThat(zeroPrice)
+                .isEqualTo(basket.getTotalPrice())
+                .isEqualTo(0.00);
+
+
+
+    }
+
+    @RepeatedTest(3)
+    @DisplayName("Final test")
+    void finalTEst() throws InterruptedException {
         var us1 = UserFactory.getAlreadyRegistredUser();
         var us2 = UserFactory.getRandomUser();
         System.out.println(us1);

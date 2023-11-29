@@ -56,7 +56,7 @@ public class SupportPage {
         return new BasketLine(product, getQuantity(quantity));
     }
 
-    private Double getPrice(WebElement we) {
+    protected Double getPrice(WebElement we) {
         return Double.parseDouble(we.getText().replaceAll("[$]", "").trim());
     }
 

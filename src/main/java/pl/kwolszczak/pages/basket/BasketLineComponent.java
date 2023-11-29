@@ -3,6 +3,7 @@ package pl.kwolszczak.pages.basket;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pl.kwolszczak.models.BasketLine;
 import pl.kwolszczak.pages.support.BasketLineQueryable;
 import pl.kwolszczak.pages.support.Component;
@@ -21,8 +22,15 @@ public class BasketLineComponent extends Component implements BasketLineQueryabl
     @FindBy(css = "span.product-price strong")
     private WebElement totalPrice;
 
+    @FindBy(css = "a.remove-from-cart")
+    private WebElement removeProduct;
+
     public BasketLineComponent(WebDriver driver, WebElement parent) {
         super(driver, parent);
+    }
+
+    protected void removeProduct(){
+        clickIt(removeProduct);
     }
 
     @Override

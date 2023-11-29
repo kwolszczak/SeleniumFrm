@@ -20,6 +20,11 @@ public class HomePage extends CommonPage {
         return new ProductPage(driver);
     }
 
+    public ProductPage openProductPage(String name) {
+        openProductPage(thumbnails, name);
+        return new ProductPage(driver);
+    }
+
     public Product toRandomProductModel() {
         var index = randomProductIndex(thumbnails);
         return thumbnails.getProductsModels().get(index);

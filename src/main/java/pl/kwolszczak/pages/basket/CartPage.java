@@ -15,6 +15,10 @@ public class CartPage extends CommonPage implements BasketQueryable {
     @FindBy(css = "ul.cart-items li")
     private List<WebElement> basket;
 
+    @FindBy(css = "div#cart-subtotal-products span.value")
+    private WebElement totalPrice;
+
+
     private List<BasketLineComponent> basketLineComponents;
 
     public CartPage(WebDriver driver) {
@@ -30,6 +34,35 @@ public class CartPage extends CommonPage implements BasketQueryable {
 //        basketLineComponents = new LinkedList<>();
 //        basketLineComponents = basket.stream().map(we -> new BasketLineComponent(driver, we)).toList();
 //    }
+
+    public double getTotalPrice() {
+        // wait.until(ExpectedConditions.visibilityOfAllElements(totalPrice));
+
+        return getPrice(totalPrice);
+    }
+
+    public CartPage removeProduct(String name, Basket basket) {
+
+        int basketSize = basketLineComponents.size();
+        for (var basketLine : basketLineComponents) {
+            if (basketLine.toBasketLineModel().getProduct().getName().equals(name)) {
+                basket.removeBasketLine(basketLine.toBasketLineModel());
+                basketLine.removeProduct();
+
+                wait.until(wd -> {
+                    this.basketLineComponents = this.basket.stream().map(we -> new BasketLineComponent(driver, we)).toList();
+                    return basketLineComponents.size() < basketSize;
+                });
+
+                break;
+            }
+        }
+
+
+
+        System.out.println(basketLineComponents.size());
+        return this;
+    }
 
     public List<BasketLine> getBasketLinesModel() {
         return basketLineComponents.stream().map(BasketLineComponent::toBasketLineModel).toList();
