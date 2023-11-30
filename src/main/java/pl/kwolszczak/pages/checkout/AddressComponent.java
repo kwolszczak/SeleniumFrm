@@ -48,6 +48,5 @@ public class AddressComponent extends Component {
         Select select = new Select(stateSelect);
         select.selectByVisibleText(state);
         clickIt(continueBtn);
-
     }
 }

@@ -6,6 +6,7 @@ public class UrlProvider {
     private static final String APP_URL = System.getProperty("environment.url");
     private static final String CONTROLLER_CATEGORY = "&controller=category&id_lang=2";
 
+    public static final String ORDER_HISTORY = APP_URL + "?controller=history";
     public static final String SIGN_IN = APP_URL + "?controller=authentication&back=my-account";
     public static final String CREATE_ACCOUNT = APP_URL + "?controller=authentication&create_account=1";
     public static final String CART = APP_URL + "?controller=cart&action=show";

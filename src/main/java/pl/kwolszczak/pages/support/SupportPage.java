@@ -50,6 +50,10 @@ public class SupportPage {
         element.click();
     }
 
+    protected void selectIt(WebElement element) {
+        element.click();
+    }
+
     protected BasketLine toBasketLineModel(WebElement name, WebElement quantity, WebElement price) {
         var product = new Product(getName(name), getPrice(price));
         return new BasketLine(product, getQuantity(quantity));

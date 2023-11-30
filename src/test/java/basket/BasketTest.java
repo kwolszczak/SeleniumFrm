@@ -12,6 +12,7 @@ import pl.kwolszczak.pages.basket.CartPage;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
 import pl.kwolszczak.pages.categories.CategoryPage;
 import pl.kwolszczak.pages.checkout.CheckoutPage;
+import pl.kwolszczak.pages.checkout.OrderConfirmationPage;
 import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.providers.UrlProvider;
@@ -123,13 +124,17 @@ public class BasketTest extends BaseTest {
         Assertions.assertThat(actualBasketInfo).isEqualTo(emptyBasketInfo);
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(1)
     @DisplayName("Checkout test")
     void checkoutTest() throws InterruptedException {
         var registredUser = UserFactory.getAlreadyRegistredUser();
         var productName = "THE BEST IS YET POSTER";
         var quantity = 1;
         var initialBasket = new Basket();
+        var billingAddress = "Posag 7 Panien";
+        var billingCity = "Warsaw";
+        var billingZipcode = "12345";
+        var billingState = "Idaho";
 
         driver.get(UrlProvider.SIGN_IN);
         at(SigningPage.class)
@@ -144,7 +149,14 @@ public class BasketTest extends BaseTest {
         at(CartPage.class)
                 .proceedToCheckout();
    at(CheckoutPage.class)
-           .changeBillingAddress("posag", "WArsawa", "12345","Idaho" );
+           .changeBillingAddress(billingAddress, billingCity, billingZipcode,billingState )
+           .acceptShippingMethod()
+           .placeOrder();
+   String orderNumber = at(OrderConfirmationPage.class)
+           .getOrderNumber();
+
+   driver.get(UrlProvider.ORDER_HISTORY);
+
         Thread.sleep(4000);
 
     }
