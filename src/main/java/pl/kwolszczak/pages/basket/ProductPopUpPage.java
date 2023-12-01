@@ -1,6 +1,5 @@
 package pl.kwolszczak.pages.basket;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,9 +10,6 @@ import pl.kwolszczak.pages.common.CommonPage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.pages.support.BasketLineQueryable;
 import pl.kwolszczak.pages.support.BasketQueryable;
-
-import java.util.Iterator;
-import java.util.Set;
 
 public class ProductPopUpPage extends CommonPage implements BasketLineQueryable, BasketQueryable {
 
@@ -48,7 +44,7 @@ public class ProductPopUpPage extends CommonPage implements BasketLineQueryable,
 
     @Override
     public BasketLine toBasketLineModel() {
-       wait.until(ExpectedConditions.elementToBeClickable(price));
+        wait.until(ExpectedConditions.elementToBeClickable(price));
         return toBasketLineModel(name, quantity, price);
     }
 

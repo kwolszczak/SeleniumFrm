@@ -3,7 +3,6 @@ package pl.kwolszczak.pages.basket;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pl.kwolszczak.models.BasketLine;
 import pl.kwolszczak.pages.support.BasketLineQueryable;
 import pl.kwolszczak.pages.support.Component;
@@ -29,7 +28,7 @@ public class BasketLineComponent extends Component implements BasketLineQueryabl
         super(driver, parent);
     }
 
-    protected void removeProduct(){
+    protected void removeProduct() {
         clickIt(removeProduct);
     }
 

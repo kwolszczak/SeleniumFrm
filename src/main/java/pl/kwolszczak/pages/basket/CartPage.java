@@ -30,17 +30,9 @@ public class CartPage extends CommonPage implements BasketQueryable {
 
     public CartPage(WebDriver driver) {
         super(driver);
-        //1
-        //setBasketLines();
-
-        //2
         basketLineComponents = setComponents(BasketLineComponent.class, basket);
     }
-//    //1
-//    private void setBasketLines() {
-//        basketLineComponents = new LinkedList<>();
-//        basketLineComponents = basket.stream().map(we -> new BasketLineComponent(driver, we)).toList();
-//    }
+
 
     public String getInfoAboutEmptyBasket() {
         return emptyBasketInfo.getText().trim();
@@ -59,9 +51,11 @@ public class CartPage extends CommonPage implements BasketQueryable {
 
         int basketSize = basketLineComponents.size();
         for (var basketLine : basketLineComponents) {
-            if (basketLine.toBasketLineModel().getProduct().getName().equals(name)) {
 
-                basket.removeBasketLine(basketLine.toBasketLineModel());
+            var basketLineModel = basketLine.toBasketLineModel();
+            if (basketLineModel.getProduct().getName().equals(name)) {
+
+                basket.removeBasketLine(basketLineModel);
                 basketLine.removeProduct();
 
                 wait.until(wd -> {
@@ -74,14 +68,14 @@ public class CartPage extends CommonPage implements BasketQueryable {
         return this;
     }
 
-    public List<BasketLine> getBasketLinesModel() {
+    public List<BasketLine> getBasketLines() {
         return basketLineComponents.stream().map(BasketLineComponent::toBasketLineModel).toList();
     }
 
     @Override
     public Basket toBasketModel() {
         var newBasket = new Basket();
-        for (var basketLine : getBasketLinesModel()) {
+        for (var basketLine : getBasketLines()) {
             newBasket.addBasketLine(basketLine);
         }
         return newBasket;
