@@ -27,39 +27,33 @@ public class FilterComponent extends Component {
         super(driver, parent);
     }
 
-    protected void setPrice(double from, double to) {
-
-        while (getPriceFrom() < from) {
+    protected void setPrice(double min, double max) {
+        while (getActualMinPrice() < min) {
             leftBtn.sendKeys(Keys.ARROW_RIGHT);
-
-            var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
-            wait.until(ExpectedConditions.invisibilityOf(spinner));
+            spinnerWait();
         }
-
-        while (getPriceTo() > to) {
+        while (getActualMaxPrice() > max) {
             rightBtn.sendKeys(Keys.ARROW_LEFT);
-
-            var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
-            wait.until(ExpectedConditions.invisibilityOf(spinner));
+            spinnerWait();
         }
-
     }
 
     protected void clearAllFilters() {
         clearAll.click();
-        wait.until(ExpectedConditions.refreshed(ExpectedConditions.invisibilityOf(
-                clearAll
-        )));
+        spinnerWait();
     }
 
-    private double getPriceFrom() {
-        double priceFrom = Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]", ""));
-        return priceFrom;
+    private double getActualMinPrice() {
+        return Double.parseDouble((priceLabel).getText().split("-")[0].replaceAll("[$]", ""));
     }
 
-    private double getPriceTo() {
-        double priceTo = Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]", ""));
-        return priceTo;
+    private double getActualMaxPrice() {
+        return Double.parseDouble((priceLabel).getText().split("-")[1].replaceAll("[$]", ""));
+    }
+
+    private void spinnerWait() {
+        var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
+        wait.until(ExpectedConditions.invisibilityOf(spinner));
     }
 
 }
