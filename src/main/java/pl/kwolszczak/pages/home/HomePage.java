@@ -25,10 +25,9 @@ public class HomePage extends CommonPage {
         return new ProductPage(driver);
     }
 
-    public Product toRandomProductModel() {
+    public Product getRandomProduct() {
         var index = randomProductIndex(thumbnails);
         return thumbnails.getProductsModels().get(index);
     }
-
 
 }

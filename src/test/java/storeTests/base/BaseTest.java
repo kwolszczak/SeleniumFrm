@@ -1,4 +1,4 @@
-package base;
+package storeTests.base;
 
 import configuration.AppConf;
 import configuration.driver.DriverFactory;

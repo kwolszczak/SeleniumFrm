@@ -1,6 +1,6 @@
 package other;
 
-import base.BaseTest;
+import storeTests.base.BaseTest;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;

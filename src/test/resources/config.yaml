@@ -8,11 +8,10 @@ environment:
 
   - active: false
     name: "uat"
-    url: "https://www.selenium.dev/"
-    eTitle: "Selenium"
+    url: "---"
+    eTitle: "TesterSii UAT"
     implicitTimeout: 5
     webElementTimeout: 10
-
 
 browser:
   name: "chrome"
@@ -22,21 +21,8 @@ browser:
   headless: true
   maximize: true
 
-sqlDB:
-  name: "test"
-  ip: 127.20.1.56
-  port: 5056
-  user: "root"
-  password: "admin"
-
-proxy: 33.333.33:3321
-
 myStore:
   firstName: "Kamil"
   lastName: "Limak"
   email: "kamil.siilimak@sii.pl"
   password: "Limak1!"
-
-
-
-

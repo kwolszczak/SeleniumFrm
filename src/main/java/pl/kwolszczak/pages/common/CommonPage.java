@@ -35,8 +35,8 @@ public class CommonPage extends SupportPage {
         return new SearchResultPage(driver);
     }
 
-    public CommonPage search(String product, boolean click) {
-        if (!click) {
+    public CommonPage search(String product, boolean searchClick) {
+        if (!searchClick) {
             header.search(product, false);
         }
         return this;
