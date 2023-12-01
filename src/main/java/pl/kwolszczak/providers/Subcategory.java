@@ -10,11 +10,11 @@ public enum Subcategory {
     ACCESSORIES_HOME("HOME ACCESSORIES", UrlProvider.ACCESSORIES_HOME),
     ACCESSORIES_STATIONERY("STATIONERY", UrlProvider.ACCESSORIES_STATIONERY);
 
-    private final String name;
+    private final String title;
     private final String url;
 
-    Subcategory(String name, String url) {
-        this.name = name;
+    Subcategory(String title, String url) {
+        this.title = title;
         this.url = url;
     }
 
