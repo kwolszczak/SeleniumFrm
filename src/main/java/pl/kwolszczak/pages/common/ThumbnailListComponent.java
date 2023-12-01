@@ -17,10 +17,6 @@ public class ThumbnailListComponent extends CommonPage {
 
     public ThumbnailListComponent(WebDriver driver) {
         super(driver);
-        // //1
-        //setThumbnailsComponents();
-
-        //2
         thumbnailsComponents = setComponents(ThumbnailComponent.class, products);
     }
 
@@ -32,12 +28,6 @@ public class ThumbnailListComponent extends CommonPage {
        return thumbnailsComponents.stream().filter(tc ->tc.getName().equals(name)).findFirst().orElse(null);
     }
 
-
-//    //1
-//    private void setThumbnailsComponents() {
-//        thumbnailsComponents = new LinkedList<>();
-//        thumbnailsComponents = products.stream().map(we -> new ThumbnailComponent(driver, we)).toList();
-//    }
 
     public List<Product> getProductsModels() {
         return thumbnailsComponents.stream().map(ThumbnailComponent::toProduct).toList();

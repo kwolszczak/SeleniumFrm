@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pl.kwolszczak.models.Product;
 import pl.kwolszczak.pages.support.Component;
-import pl.kwolszczak.pages.support.SupportPage;
 
 public class ThumbnailComponent extends Component {
 

@@ -38,7 +38,6 @@ public class HeaderComponent extends Component {
     }
 
     protected int getNumberOfProductsInBasket() {
-        return Integer.parseInt(cartBtn.getText().replaceAll("\\D",""));
-
+        return getDigits(cartBtn);
     }
 }
