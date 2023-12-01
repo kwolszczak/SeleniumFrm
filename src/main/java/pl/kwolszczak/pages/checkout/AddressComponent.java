@@ -1,5 +1,6 @@
 package pl.kwolszczak.pages.checkout;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,18 +31,32 @@ public class AddressComponent extends Component {
     @FindBy(css = "button[type='submit']")
     private WebElement continueBtn;
 
+    @FindBy(xpath = "//div[@id='invoice-addresses']/following-sibling::p[@class='add-address']//a")
+    private WebElement addNewAddressBtn;
+
     protected AddressComponent(WebDriver driver, WebElement parent) {
         super(driver, parent);
     }
 
     private void clickBillingAddressDiffers() {
         clickIt(billingAddressLink);
-        wait.until(ExpectedConditions.visibilityOfAllElements(invoiceAddressSection));
+
 
     }
-    protected void changeBillingAddress(String address, String city, String zipcode,String state) {
-        clickBillingAddressDiffers();
 
+    private void addNewAddress() {
+            clickIt(addNewAddressBtn);
+    }
+    protected void changeBillingAddress(String address, String city, String zipcode,String state) {
+
+        clickBillingAddressDiffers();
+        try {
+            addNewAddressBtn.click();
+        } catch (Exception e) {
+            System.out.println("now need to add new address");
+        }
+
+        wait.until(ExpectedConditions.visibilityOfAllElements(invoiceAddressSection));
         fillIn(addressInp,address);
         fillIn(cityInp,city);
         fillIn(zipcodeInp, zipcode);
