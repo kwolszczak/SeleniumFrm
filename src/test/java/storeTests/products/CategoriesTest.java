@@ -44,7 +44,7 @@ class CategoriesTest extends BaseTest {
 
     private void step_verifyNumOfProducts(CategoryPage categoryPage) {
         var numOfProductsLabel = categoryPage.getNumberOfProducts();
-        var numOfProducts = categoryPage.getProductsModels().size();
+        var numOfProducts = categoryPage.getProducts().size();
         Assertions.assertThat(numOfProductsLabel).isEqualTo(numOfProducts);
     }
 

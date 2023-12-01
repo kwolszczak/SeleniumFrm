@@ -54,6 +54,10 @@ public class SupportPage {
         element.click();
     }
 
+    protected int getDigits(WebElement element) {
+        return Integer.parseInt(element.getText().replaceAll("\\D", "").trim());
+    }
+
     protected BasketLine toBasketLineModel(WebElement name, WebElement quantity, WebElement price) {
         var product = new Product(getName(name), getPrice(price));
         return new BasketLine(product, getQuantity(quantity));

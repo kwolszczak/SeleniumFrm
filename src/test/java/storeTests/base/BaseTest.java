@@ -4,6 +4,7 @@ import configuration.AppConf;
 import configuration.driver.DriverFactory;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,12 +13,14 @@ import pl.kwolszczak.pages.support.SupportPage;
 
 import java.util.Random;
 
+@Slf4j
 public class BaseTest {
     protected WebDriver driver;
     protected static Random random;
 
     @BeforeAll
     static void setConf() {
+        log.info(">>>> START BEFORE ALL >>>>");
         AppConf conf = AppConf.getInstance();
         random = new Random();
     }

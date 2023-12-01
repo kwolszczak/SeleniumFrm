@@ -32,18 +32,13 @@ public class CategoryPage extends CommonPage {
         }
     }
 
-    public ProductPage openRandomProductPage() {
-        openRandomProductPage(thumbnails);
-        return new ProductPage(driver);
-    }
-
     public ProductPage openProductPage(String name) {
         openProductPage(thumbnails, name);
         return new ProductPage(driver);
     }
 
     public int getNumberOfProducts() {
-        return  Integer.parseInt(numberOfProducts.getText().replaceAll("[^0-9]","").trim());
+        return getDigits(numberOfProducts);
     }
 
     public String getCategoryTitle() {
@@ -54,17 +49,17 @@ public class CategoryPage extends CommonPage {
         return filterMenu.isDisplayed();
     }
 
-    public CategoryPage clearFilters()  {
+    public CategoryPage clearFilters() {
         filter.clearAllFilters();
         return this;
     }
 
-    public CategoryPage setPrice(int downPrice, int upPrice)  {
-        filter.setPrice(downPrice, upPrice);
+    public CategoryPage setPrice(int minPrice, int maxPrice) {
+        filter.setPrice(minPrice, maxPrice);
         return this;
     }
 
-    public List<Product> getProductsModels(){
+    public List<Product> getProducts() {
         return thumbnails.getProductsModels();
     }
 }
