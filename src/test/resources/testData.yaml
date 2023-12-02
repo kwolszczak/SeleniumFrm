@@ -1,17 +1,21 @@
-basket:
-  addProductToBasket_generic:
-    name: ""
-    url: "http://146.59.32.4/index.php"
-    eTitle: "TesterSii"
-    implicitTimeout: 5
-    webElementTimeout: 6
+removeProduct:
+ numberOfRepetitions: 2
+ quantityOfProduct: 1
+ emptyBasketInfo: "There are no more items in your cart"
 
-    checkoutTest:
-      orderPaymentStatus: "Awaiting check payment"
-      url: "http://146.59.32.4/index.php"
-      eTitle: "TesterSii"
-      implicitTimeout: 5
-      webElementTimeout: 6
+
+checkoutTest:
+ orderPaymentStatus: "Awaiting check payment"
+ productName: "THE BEST IS YET POSTER"
+ quantity: 1
+ billingAddress.address: "Kasprzaka"
+ billingAddress.city: "Warsaw"
+ billingAddress.zipcode: "12345"
+ billingAddress.state: "Idaho"
+ deliveryAddress.address: "6th Avenue"
+ deliveryAddress.city: "New York"
+ deliveryAddress.zipcode: "10019"
+ deliveryAddress.state: "New York"
 
 
 

@@ -3,7 +3,9 @@ package storeTests.basket;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import pl.kwolszczak.models.*;
+import pl.kwolszczak.models.Basket;
+import pl.kwolszczak.models.Product;
+import pl.kwolszczak.models.UserFactory;
 import pl.kwolszczak.pages.account.SigningPage;
 import pl.kwolszczak.pages.basket.CartPage;
 import pl.kwolszczak.pages.basket.ProductPopUpPage;
@@ -15,10 +17,8 @@ import pl.kwolszczak.pages.history.HistoryOrderPage;
 import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.providers.UrlProvider;
+import provider.TestDataProvider;
 import storeTests.base.BaseTest;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 class BasketTest extends BaseTest {
 
@@ -137,30 +137,13 @@ class BasketTest extends BaseTest {
 
     @RepeatedTest(1)
     @DisplayName("Checkout test")
-    void checkoutTest()  {
-        var orderPaymentStatus = "Awaiting check payment";
+    void checkoutTest() {
         var registredUser = UserFactory.getAlreadyRegistredUser();
-        var productName = "THE BEST IS YET POSTER";
-        var quantity = 1;
+        var orderPaymentStatus = System.getProperty("checkoutTest-orderPaymentStatus");
+        var productName = System.getProperty("checkoutTest-productName");
+        var quantity = Integer.parseInt(System.getProperty("checkoutTest-quantity"));
         var initialBasket = new Basket();
-        OrderAddress billingAddress = new OrderAddress();
-        billingAddress.setAddress("Kasprzaka");
-        billingAddress.setCity("Warsaw");
-        billingAddress.setZipcode("12345");
-        billingAddress.setState("Idaho");
-
-        OrderAddress deliveryAddress = new OrderAddress();
-        deliveryAddress.setAddress("6th Avenue");
-        deliveryAddress.setCity("New York");
-        deliveryAddress.setZipcode("10019");
-        deliveryAddress.setState("New York");
-
-        var today = LocalDate.now();
-        var todayStr = today.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        var order = new Order();
-        order.setBillingAddress(billingAddress);
-        order.setDeliveryAddress(deliveryAddress);
-        order.setOrderDate(todayStr);
+        var order = TestDataProvider.getTestOrder();
 
         System.out.println(" >>>> START TEST >>>>");
 
@@ -177,7 +160,12 @@ class BasketTest extends BaseTest {
         at(CartPage.class)
                 .proceedToCheckout();
         at(CheckoutPage.class)
-                .changeBillingAddress(billingAddress.getAddress(), billingAddress.getCity(), billingAddress.getZipcode(), billingAddress.getState())
+                .changeBillingAddress(
+                        order.getBillingAddress().getAddress(),
+                        order.getBillingAddress().getCity(),
+                        order.getBillingAddress().getZipcode(),
+                        order.getBillingAddress().getState()
+                )
                 .acceptShippingMethod()
                 .placeOrder();
 

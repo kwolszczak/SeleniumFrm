@@ -1,6 +1,7 @@
 package storeTests.base;
 
 import configuration.AppConf;
+import configuration.TestDataConf;
 import configuration.driver.DriverFactory;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class BaseTest {
     static void setConf() {
         log.info(">>>> START BEFORE ALL >>>>");
         AppConf conf = AppConf.getInstance();
+        TestDataConf testDataConf = TestDataConf.getInstance();
         random = new Random();
     }
 

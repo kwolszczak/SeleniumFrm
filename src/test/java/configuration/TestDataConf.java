@@ -2,28 +2,27 @@ package configuration;
 
 import configuration.loader.YamlLoader;
 import configuration.model.Configuration;
+import configuration.model.Environment;
 import lombok.extern.slf4j.Slf4j;
-import configuration.model.*;
-
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class AppConf {
+public class TestDataConf {
 
-    private static final String CONFIG_YAML = "config.yaml";
-    private static final AppConf INSTANCE = new AppConf();
+    private static final String CONFIG_YAML = "testData.yaml";
+    private static final TestDataConf INSTANCE = new TestDataConf();
     private static Configuration config;
 
 
-    private AppConf() {
+    private TestDataConf() {
         loadYamlConfig();
         loadConfigurationToSystemProperties();
     }
 
-    public static AppConf getInstance() {
-        return AppConf.INSTANCE;
+    public static TestDataConf getInstance() {
+        return TestDataConf.INSTANCE;
     }
 
     private void loadYamlConfig() {
@@ -38,11 +37,8 @@ public class AppConf {
 
     private void loadConfigurationToSystemProperties() {
 
-        var activeEnvironment = getActiveEnvironment();
         var otherSections = config.getProperties();
-
         log.info("#### Loading configuration to SystemProperty: ####");
-        setSystemProperties(activeEnvironment);
         setSystemProperties(otherSections);
     }
 
@@ -77,7 +73,7 @@ public class AppConf {
     private void setSystemPropertyForMap(Map<String, Object> map, String parentKey) {
         for (var entry : map.entrySet()) {
 
-            var keyProperty = parentKey + "." + entry.getKey();
+            var keyProperty = parentKey + "-" + entry.getKey();
             var valueProperty = entry.getValue();
             if (valueProperty == null) {
                 log.error("{} = null. Value can't be null", keyProperty);
@@ -90,17 +86,5 @@ public class AppConf {
     }
 
 
-    private Map<String, Object> getActiveEnvironment() {
 
-        var numberOfActiveEnvironments = config.getEnvironment().stream().filter(env -> env.getProperties().get("active").equals(true)).count();
-
-        if (numberOfActiveEnvironments != 1) {
-            log.error("Wrong configuration of Environments. There should be only one active env, but there's {}", numberOfActiveEnvironments);
-            throw new IllegalArgumentException();
-        }
-
-        return config.getEnvironment().stream()
-                .filter(env -> env.getProperties().get("active").equals(true))
-                .collect(Collectors.toMap(env -> "environment", Environment::getProperties));
-    }
 }
