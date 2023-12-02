@@ -11,4 +11,13 @@ public class Order {
     private String orderNumber;
     private OrderAddress deliveryAddress;
     private OrderAddress billingAddress;
+
+    public Order() {
+    }
+
+    public Order(String orderNumber, String orderDate, double price) {
+        this.orderNumber = orderNumber;
+        this.orderDate = orderDate;
+        this.price = price;
+    }
 }

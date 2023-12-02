@@ -1,0 +1,17 @@
+basket:
+  addProductToBasket_generic:
+    name: ""
+    url: "http://146.59.32.4/index.php"
+    eTitle: "TesterSii"
+    implicitTimeout: 5
+    webElementTimeout: 6
+
+    checkoutTest:
+      orderPaymentStatus: "Awaiting check payment"
+      url: "http://146.59.32.4/index.php"
+      eTitle: "TesterSii"
+      implicitTimeout: 5
+      webElementTimeout: 6
+
+
+

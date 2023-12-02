@@ -1,6 +1,5 @@
 package storeTests.basket;
 
-import storeTests.base.BaseTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -16,22 +15,28 @@ import pl.kwolszczak.pages.history.HistoryOrderPage;
 import pl.kwolszczak.pages.home.HomePage;
 import pl.kwolszczak.pages.product.ProductPage;
 import pl.kwolszczak.providers.UrlProvider;
+import storeTests.base.BaseTest;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class BasketTest extends BaseTest {
+class BasketTest extends BaseTest {
 
     @RepeatedTest(3)
     @DisplayName("Generic - add product to basket")
     void addProductToBasket_generic() {
 
-        int quantityOfProduct = random.nextInt(1, 8);
-
+        int numberOfRepetitions = 10;
+        int quantityOfProduct = random.nextInt(1, 5);
         Basket basket = new Basket();
-        for (int i = 0; i < 10; i++) {
+
+        for (int i = 0; i < numberOfRepetitions; i++) {
+            var randomProductName = at(HomePage.class)
+                    .getRandomProduct()
+                    .getName();
+
             at(HomePage.class)
-                    .openRandomProductPage();
+                    .openProductPage(randomProductName);
             at(ProductPage.class)
                     .addToBasket(quantityOfProduct, basket);
             at(ProductPopUpPage.class)
@@ -60,7 +65,6 @@ public class BasketTest extends BaseTest {
         driver.get(UrlProvider.ART);
         at(CategoryPage.class)
                 .openProductPage(searchedProduct);
-
         at(ProductPage.class)
                 .addToBasket(quantity, basket);
 
@@ -84,14 +88,18 @@ public class BasketTest extends BaseTest {
     @DisplayName("Remove")
     void removeProduct() {
 
+        int numberOfRepetitions = 2;
         int quantityOfProduct = 1;
         String emptyBasketInfo = "There are no more items in your cart";
 
         Basket basket = new Basket();
-        Product[] randomProducts = new Product[2];
-        for (int i = 0; i < 2; i++) {
+        Product[] randomProducts = new Product[numberOfRepetitions];
+        for (int i = 0; i < numberOfRepetitions; i++) {
+            var randomProduct = at(HomePage.class).getRandomProduct();
+            var randomProductName = randomProduct.getName();
+
             at(HomePage.class)
-                    .openRandomProductPage();
+                    .openProductPage(randomProductName);
             at(ProductPage.class)
                     .addToBasket(quantityOfProduct, basket);
             randomProducts[i] = at(ProductPopUpPage.class)
@@ -129,7 +137,7 @@ public class BasketTest extends BaseTest {
 
     @RepeatedTest(1)
     @DisplayName("Checkout test")
-    void checkoutTest() throws InterruptedException {
+    void checkoutTest()  {
         var orderPaymentStatus = "Awaiting check payment";
         var registredUser = UserFactory.getAlreadyRegistredUser();
         var productName = "THE BEST IS YET POSTER";
@@ -147,12 +155,11 @@ public class BasketTest extends BaseTest {
         deliveryAddress.setZipcode("10019");
         deliveryAddress.setState("New York");
 
-        Order order = new Order();
+        var today = LocalDate.now();
+        var todayStr = today.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        var order = new Order();
         order.setBillingAddress(billingAddress);
         order.setDeliveryAddress(deliveryAddress);
-
-        LocalDate today = LocalDate.now();
-        String todayStr = today.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         order.setOrderDate(todayStr);
 
         System.out.println(" >>>> START TEST >>>>");
@@ -176,34 +183,23 @@ public class BasketTest extends BaseTest {
 
         String orderNumber = at(OrderConfirmationPage.class)
                 .getOrderNumber();
-        var totalPrice = at(OrderConfirmationPage.class)
+        Double totalPrice = at(OrderConfirmationPage.class)
                 .getOrderPrice();
-
         order.setOrderNumber(orderNumber);
         order.setPrice(totalPrice);
 
         driver.get(UrlProvider.ORDER_HISTORY);
         at(HistoryOrderPage.class)
                 .openOrderDetails(orderNumber);
-        var orderDetails = at(HistoryOrderDetailsPage.class);
+        var actualOrder = at(HistoryOrderDetailsPage.class)
+                .toOrderModel();
+        var actualOrderPaymentStatus = at(HistoryOrderDetailsPage.class)
+                .getPaymentStatus();
 
-
-        Assertions.assertThat(orderDetails.getPayment())
+        Assertions.assertThat(actualOrderPaymentStatus)
                 .isEqualTo(orderPaymentStatus);
-        Assertions.assertThat(orderDetails.getPrice())
-                .isEqualTo(order.getPrice());
-        Assertions.assertThat(orderDetails.getDate())
-                .isEqualTo(order.getOrderDate());
-        Assertions.assertThat(orderDetails.getDeliveryAddress())
-                .contains(deliveryAddress.getAddress())
-                .contains(deliveryAddress.getCity())
-                .contains(deliveryAddress.getState())
-                .contains(deliveryAddress.getZipcode());
-        Assertions.assertThat(orderDetails.getInvoiceAddress())
-                .contains(billingAddress.getAddress())
-                .contains(billingAddress.getCity())
-                .contains(billingAddress.getState())
-                .contains(billingAddress.getZipcode());
+        Assertions.assertThat(actualOrder).usingRecursiveComparison()
+                .isEqualTo(order);
 
     }
 }

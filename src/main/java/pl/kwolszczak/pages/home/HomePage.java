@@ -15,11 +15,6 @@ public class HomePage extends CommonPage {
         thumbnails = new ThumbnailListComponent(driver);
     }
 
-    public ProductPage openRandomProductPage() {
-        openRandomProductPage(thumbnails);
-        return new ProductPage(driver);
-    }
-
     public ProductPage openProductPage(String name) {
         openProductPage(thumbnails, name);
         return new ProductPage(driver);

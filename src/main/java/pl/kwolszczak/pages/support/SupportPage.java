@@ -74,12 +74,10 @@ public class SupportPage {
         return Integer.parseInt(we.getAttribute("value"));
     }
 
-    protected void openRandomProductPage(ThumbnailListComponent thumbnails) {
-        thumbnails.getProducts().get(randomProductIndex(thumbnails)).openProductDetailsPage();
-    }
     protected void openProductPage(ThumbnailListComponent thumbnails,String name) {
         thumbnails.getProduct(name).openProductDetailsPage();
     }
+
     protected int randomProductIndex(ThumbnailListComponent thumbnails) {
         int size = thumbnails.getProducts().size();
         return random.nextInt(0, size);
