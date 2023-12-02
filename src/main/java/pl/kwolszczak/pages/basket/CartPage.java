@@ -39,7 +39,7 @@ public class CartPage extends CommonPage implements BasketQueryable {
     }
 
     public double getTotalPrice() {
-        return getPrice(totalPrice);
+        return parsePrice(totalPrice);
     }
 
     public CheckoutPage proceedToCheckout() {

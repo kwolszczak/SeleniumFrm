@@ -38,7 +38,7 @@ public class CategoryPage extends CommonPage {
     }
 
     public int getNumberOfProducts() {
-        return getDigits(numberOfProducts);
+        return parseDigits(numberOfProducts);
     }
 
     public String getCategoryTitle() {

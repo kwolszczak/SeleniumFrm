@@ -18,12 +18,10 @@ public class OrderConfirmationPage extends CommonPage {
     }
 
     public String getOrderNumber() {
-        System.out.println(orderNumber.getText());
         return orderNumber.getText().split(":")[1].trim();
     }
 
-    public String getOrderPrice() {
-
-        return totalPrice.getText().replaceAll("[$]","").trim();
+    public Double getOrderPrice() {
+        return parsePrice(totalPrice);
     }
 }

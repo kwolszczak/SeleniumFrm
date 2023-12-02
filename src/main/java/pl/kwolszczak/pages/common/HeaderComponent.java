@@ -38,6 +38,6 @@ public class HeaderComponent extends Component {
     }
 
     protected int getNumberOfProductsInBasket() {
-        return getDigits(cartBtn);
+        return parseDigits(cartBtn);
     }
 }

@@ -35,9 +35,10 @@ public class HistoryOrderDetailsPage extends CommonPage {
         return billingAddress.getText();
     }
 
-    public String getPrice() {
-        return price.getText().replaceAll("[$]","").trim();
+    public Double getPrice() {
+        return parsePrice(price);
     }
+
     public String getPayment() {
         return payment.getText().trim();
     }
@@ -45,6 +46,5 @@ public class HistoryOrderDetailsPage extends CommonPage {
     public String getDate() {
         return date.getText();
     }
-
 
 }

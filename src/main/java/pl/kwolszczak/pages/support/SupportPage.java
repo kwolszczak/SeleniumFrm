@@ -54,28 +54,24 @@ public class SupportPage {
         element.click();
     }
 
-    protected int getDigits(WebElement element) {
+    protected int parseDigits(WebElement element) {
         return Integer.parseInt(element.getText().replaceAll("\\D", "").trim());
+    }
+    protected Double parsePrice(WebElement element) {
+        return Double.parseDouble(element.getText().replaceAll("[^\\d.]","").trim());
     }
 
     protected BasketLine toBasketLineModel(WebElement name, WebElement quantity, WebElement price) {
-        var product = new Product(getName(name), getPrice(price));
+        var product = new Product(name.getText(), parsePrice(price));
         return new BasketLine(product, getQuantity(quantity));
     }
 
-    protected Double getPrice(WebElement we) {
-        return Double.parseDouble(we.getText().replaceAll("[$]", "").trim());
-    }
 
     private int getQuantity(WebElement we) {
         if (we.getAttribute("value") == null) {
-            return Integer.parseInt(we.getText().replaceAll("\\D",""));
+            return parseDigits(we);
         }
         return Integer.parseInt(we.getAttribute("value"));
-    }
-
-    private String getName(WebElement we) {
-        return we.getText();
     }
 
     protected void openRandomProductPage(ThumbnailListComponent thumbnails) {

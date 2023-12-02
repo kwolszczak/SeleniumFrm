@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Order {
     private String orderDate;
-    private String price;
+    private double price;
     private String orderNumber;
     private OrderAddress deliveryAddress;
     private OrderAddress billingAddress;

@@ -176,7 +176,7 @@ public class BasketTest extends BaseTest {
 
         String orderNumber = at(OrderConfirmationPage.class)
                 .getOrderNumber();
-        String totalPrice = at(OrderConfirmationPage.class)
+        var totalPrice = at(OrderConfirmationPage.class)
                 .getOrderPrice();
 
         order.setOrderNumber(orderNumber);
@@ -186,6 +186,7 @@ public class BasketTest extends BaseTest {
         at(HistoryOrderPage.class)
                 .openOrderDetails(orderNumber);
         var orderDetails = at(HistoryOrderDetailsPage.class);
+
 
         Assertions.assertThat(orderDetails.getPayment())
                 .isEqualTo(orderPaymentStatus);
