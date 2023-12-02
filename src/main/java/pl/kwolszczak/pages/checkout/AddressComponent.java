@@ -1,6 +1,6 @@
 package pl.kwolszczak.pages.checkout;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,8 +40,6 @@ public class AddressComponent extends Component {
 
     private void clickBillingAddressDiffers() {
         clickIt(billingAddressLink);
-
-
     }
 
     private void addNewAddress() {
@@ -53,7 +51,7 @@ public class AddressComponent extends Component {
         try {
             addNewAddressBtn.click();
         } catch (Exception e) {
-            System.out.println("now need to add new address");
+            System.out.println("No need to add new address, there is one or more extra addresses");
         }
 
         wait.until(ExpectedConditions.visibilityOfAllElements(invoiceAddressSection));

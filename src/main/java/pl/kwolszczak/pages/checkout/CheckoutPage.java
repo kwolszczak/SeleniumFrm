@@ -3,6 +3,7 @@ package pl.kwolszczak.pages.checkout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pl.kwolszczak.models.OrderAddress;
 import pl.kwolszczak.pages.common.CommonPage;
 
 public class CheckoutPage extends CommonPage {
@@ -29,6 +30,10 @@ public class CheckoutPage extends CommonPage {
 
     public CheckoutPage changeBillingAddress(String address, String city, String zipcode,String state) {
         addressComponent.changeBillingAddress(address,city,zipcode,state);
+        return this;
+    }
+    public CheckoutPage changeBillingAddress(OrderAddress orderAddress) {
+        addressComponent.changeBillingAddress(orderAddress.getAddress(),orderAddress.getCity(),orderAddress.getZipcode(),orderAddress.getState());
         return this;
     }
 
