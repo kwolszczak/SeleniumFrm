@@ -61,13 +61,7 @@ public class HistoryOrderDetailsPage extends CommonPage {
 
     public Order toOrderModel() {
 
-        OrderAddress delivery = getDeliveryAddress();
-        OrderAddress billing = getInvoiceAddress();
-        Order order = new Order(getOrderNumber(), getDate(), getPrice());
-        order.setDeliveryAddress(delivery);
-        order.setBillingAddress(billing);
-
-        return order;
+        return new Order(getDate(),getPrice(),getOrderNumber(),getDeliveryAddress(),getInvoiceAddress());
     }
 
     private OrderAddress parseAddress(WebElement element) {

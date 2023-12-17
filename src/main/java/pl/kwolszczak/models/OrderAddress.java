@@ -10,4 +10,14 @@ public class OrderAddress {
     private String city;
     private String state;
     private String zipcode;
+
+    public OrderAddress() {
+    }
+
+    public OrderAddress(String address, String city, String state, String zipcode) {
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
 }

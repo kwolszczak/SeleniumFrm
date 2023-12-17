@@ -21,5 +21,11 @@ public class Order {
         this.price = price;
     }
 
-
+    public Order(String orderDate, double price, String orderNumber, OrderAddress deliveryAddress, OrderAddress billingAddress) {
+        this.orderDate = orderDate;
+        this.price = price;
+        this.orderNumber = orderNumber;
+        this.deliveryAddress = deliveryAddress;
+        this.billingAddress = billingAddress;
+    }
 }
