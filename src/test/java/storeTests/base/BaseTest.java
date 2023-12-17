@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import pl.kwolszczak.pages.support.SupportPage;
 
 import java.util.Random;
+import java.util.function.Consumer;
 
 @Slf4j
 public class BaseTest {
@@ -21,8 +22,9 @@ public class BaseTest {
     @BeforeAll
     static void setConf() {
         log.info(">>>> START BEFORE ALL >>>>");
-        AppConf conf = AppConf.getInstance();
-        TestDataConf testDataConf = TestDataConf.getInstance();
+
+        AppConf.getInstance();
+        TestDataConf.getInstance();
         random = new Random();
     }
 
@@ -39,5 +41,12 @@ public class BaseTest {
     @SneakyThrows
     public <T extends SupportPage> T at(Class<T> pageType) {
         return pageType.getDeclaredConstructor(WebDriver.class).newInstance(driver);
+    }
+
+    @SneakyThrows
+    public <T extends SupportPage> T at(Class<T> pageType, Consumer<T> pageAction) {
+        var page = at(pageType);
+        pageAction.accept(page);
+        return page;
     }
 }

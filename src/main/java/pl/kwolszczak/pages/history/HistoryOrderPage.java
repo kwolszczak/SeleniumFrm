@@ -24,6 +24,6 @@ public class HistoryOrderPage extends CommonPage {
                 .findFirst()
                 .orElse(null);
 
-        clickIt(order);
+        click(order);
     }
 }

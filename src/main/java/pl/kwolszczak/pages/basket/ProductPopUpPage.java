@@ -33,12 +33,12 @@ public class ProductPopUpPage extends CommonPage implements BasketLineQueryable,
     }
 
     public ProductPage continueShopping() {
-        clickIt(continueShoppingBtn);
+        click(continueShoppingBtn);
         return new ProductPage(driver);
     }
 
     public CartPage proceedToCheckout() {
-        clickIt(proceedToCheckoutBtn);
+        click(proceedToCheckoutBtn);
         return new CartPage(driver);
     }
 

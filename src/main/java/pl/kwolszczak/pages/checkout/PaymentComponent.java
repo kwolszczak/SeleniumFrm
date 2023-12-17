@@ -23,9 +23,9 @@ public class PaymentComponent extends Component {
 
 
     protected void placeOrder() {
-        selectIt(payByCheckBtn);
-        selectIt(approveConditionsBtn);
-        clickIt(placeOrderBtn);
+        select(payByCheckBtn);
+        select(approveConditionsBtn);
+        click(placeOrderBtn);
 
     }
 }

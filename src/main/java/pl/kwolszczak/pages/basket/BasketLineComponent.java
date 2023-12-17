@@ -29,7 +29,7 @@ public class BasketLineComponent extends Component implements BasketLineQueryabl
     }
 
     protected void removeProduct() {
-        clickIt(removeProduct);
+        click(removeProduct);
     }
 
     @Override

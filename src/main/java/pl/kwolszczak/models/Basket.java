@@ -21,22 +21,24 @@ public class Basket {
     }
 
     public void addBasketLine(BasketLine basketLine) {
-        int index;
-        if (( index=products.indexOf(basketLine)) != -1){
+        int index = products.indexOf(basketLine);
+        if (index != -1) {
             products.get(index).increaseQuantity(basketLine.getQuantity());
-        }else {
+        } else {
             products.add(basketLine);
         }
-        totalPrice += basketLine.getTotalPrice();
-        totalPrice =Math.round(totalPrice * 100.0) / 100.0;
+        updateTotalPrice();
+    }
+
+    private void updateTotalPrice() {
+        totalPrice = products.stream().mapToDouble(BasketLine::getTotalPrice).sum();
+        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
     }
 
     public void removeBasketLine(BasketLine basketLine) {
-        int index;
-        if (( index= products.indexOf(basketLine)) != -1){
+        if (products.contains(basketLine)) {
             products.remove(basketLine);
-            totalPrice -= basketLine.getTotalPrice();
-            totalPrice =Math.round(totalPrice * 100.0) / 100.0;
+            updateTotalPrice();
         }
     }
 

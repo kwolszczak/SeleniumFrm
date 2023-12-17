@@ -25,16 +25,15 @@ public class HeaderComponent extends Component {
     }
 
     protected void search(String product, boolean click) {
+        fill(searchInp, product);
+
         if (click) {
-            fillIn(searchInp, product);
-            clickIt(searchBtn);
-        } else {
-            fillIn(searchInp, product);
+            click(searchBtn);
         }
     }
 
     protected void goHomePage() {
-        clickIt(homeBtn);
+        click(homeBtn);
     }
 
     protected int getNumberOfProductsInBasket() {

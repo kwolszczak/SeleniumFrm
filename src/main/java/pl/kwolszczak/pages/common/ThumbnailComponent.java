@@ -20,7 +20,7 @@ public class ThumbnailComponent extends Component {
     }
 
     public void openProductDetailsPage() {
-        clickIt(name);
+        click(name);
     }
 
 

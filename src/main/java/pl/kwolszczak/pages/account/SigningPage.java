@@ -21,9 +21,9 @@ public class SigningPage extends CommonPage {
     }
 
     public AccountPage login(String email, String password) {
-        fillIn(emailInp,email);
-        fillIn(passwordInp,password);
-        clickIt(signinBtn);
+        fill(emailInp,email);
+        fill(passwordInp,password);
+        click(signinBtn);
         return new AccountPage(driver);
     }
 }

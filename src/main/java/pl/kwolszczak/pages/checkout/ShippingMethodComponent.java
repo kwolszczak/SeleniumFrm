@@ -16,6 +16,6 @@ public class ShippingMethodComponent extends Component {
     }
     
     protected void clickContinue() {
-      clickIt(continueBtn);
+      click(continueBtn);
     }
 }

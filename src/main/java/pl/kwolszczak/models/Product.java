@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 public class Product implements Comparable<Product> {
     private String name;
-    private String size;
-    private String color;
     private double price;
 
     public Product() {

@@ -49,7 +49,9 @@ public class HistoryOrderDetailsPage extends CommonPage {
     }
 
     public String getOrderNumber() {
-        return orderNumber.getText().replaceAll("Order Reference (\\w+).*", "$1");
+        String regexOrderReference = "Order Reference (\\w+).*";
+        String orderNumber = "$1";
+        return this.orderNumber.getText().replaceAll(regexOrderReference, orderNumber);
     }
 
 

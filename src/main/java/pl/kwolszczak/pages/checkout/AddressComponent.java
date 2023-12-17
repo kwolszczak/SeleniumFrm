@@ -39,11 +39,11 @@ public class AddressComponent extends Component {
     }
 
     private void clickBillingAddressDiffers() {
-        clickIt(billingAddressLink);
+        click(billingAddressLink);
     }
 
     private void addNewAddress() {
-            clickIt(addNewAddressBtn);
+            click(addNewAddressBtn);
     }
     protected void changeBillingAddress(String address, String city, String zipcode,String state) {
 
@@ -55,11 +55,10 @@ public class AddressComponent extends Component {
         }
 
         wait.until(ExpectedConditions.visibilityOfAllElements(invoiceAddressSection));
-        fillIn(addressInp,address);
-        fillIn(cityInp,city);
-        fillIn(zipcodeInp, zipcode);
-        Select select = new Select(stateSelect);
-        select.selectByVisibleText(state);
-        clickIt(continueBtn);
+        fill(addressInp,address);
+        fill(cityInp,city);
+        fill(zipcodeInp, zipcode);
+        select(stateSelect,state);
+        click(continueBtn);
     }
 }

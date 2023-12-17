@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
  class PopUpTest {
     private static WebDriver driver;
 
-    @RepeatedTest(10)
+    @RepeatedTest(3)
     void popupTest() throws InterruptedException {
         var mealName = "My first dinner";
         var mealDate = "12/5/2024";

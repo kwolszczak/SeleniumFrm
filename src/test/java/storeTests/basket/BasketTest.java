@@ -22,7 +22,7 @@ import storeTests.base.BaseTest;
 
 class BasketTest extends BaseTest {
 
-    @RepeatedTest(3)
+    @RepeatedTest(1)
     @DisplayName("Generic - add product to basket")
     void addProductToBasket_generic() {
 

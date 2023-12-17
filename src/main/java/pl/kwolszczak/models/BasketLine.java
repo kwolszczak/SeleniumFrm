@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class BasketLine implements Comparable<BasketLine>{
+public class BasketLine implements Comparable<BasketLine> {
     private Product product;
     private double totalPrice;
     private int quantity;
@@ -18,13 +18,13 @@ public class BasketLine implements Comparable<BasketLine>{
         updateTotalPrice();
     }
 
-    public void increaseQuantity(int quantity){
-      this.quantity += quantity;
-      updateTotalPrice();
+    public void increaseQuantity(int quantity) {
+        this.quantity += quantity;
+        updateTotalPrice();
     }
 
-    public void updateTotalPrice(){
-        this.totalPrice= this.quantity * product.getPrice();
+    private void updateTotalPrice() {
+        this.totalPrice = this.quantity * product.getPrice();
     }
 
 

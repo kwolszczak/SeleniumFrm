@@ -6,10 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pl.kwolszczak.models.BasketLine;
-import pl.kwolszczak.models.Product;
-import pl.kwolszczak.pages.common.ThumbnailListComponent;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
@@ -40,54 +38,40 @@ public class SupportPage {
         this.actions = new Actions(driver);
     }
 
-    protected void fillIn(WebElement element, String value) {
+    protected void fill(WebElement element, String value) {
         element.clear();
         element.sendKeys(value);
     }
 
-    protected void clickIt(WebElement element) {
+    protected void click(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
-    protected void selectIt(WebElement element) {
+    protected void select(WebElement element) {
         element.click();
+    }
+
+    protected void select(WebElement element, String text) {
+        Select select = new Select(element);
+        select.selectByVisibleText(text);
     }
 
     protected int parseDigits(WebElement element) {
         return Integer.parseInt(element.getText().replaceAll("\\D", "").trim());
     }
+
     protected Double parsePrice(WebElement element) {
-        return Double.parseDouble(element.getText().replaceAll("[^\\d.]","").trim());
+        return Double.parseDouble(element.getText().replaceAll("[^\\d.]", "").trim());
     }
 
-    protected BasketLine toBasketLineModel(WebElement name, WebElement quantity, WebElement price) {
-        var product = new Product(name.getText(), parsePrice(price));
-        return new BasketLine(product, getQuantity(quantity));
-    }
-
-
-    private int getQuantity(WebElement we) {
-        if (we.getAttribute("value") == null) {
-            return parseDigits(we);
-        }
-        return Integer.parseInt(we.getAttribute("value"));
-    }
-
-    protected void openProductPage(ThumbnailListComponent thumbnails,String name) {
-        thumbnails.getProduct(name).openProductDetailsPage();
-    }
-
-    protected int randomProductIndex(ThumbnailListComponent thumbnails) {
-        int size = thumbnails.getProducts().size();
-        return random.nextInt(0, size);
-    }
 
     protected <T extends Component> List<T> setComponents(Class<T> componentType, List<WebElement> webElements) {
-       return  webElements.stream().map(we -> {
+        return webElements.stream().map(we -> {
             try {
                 return componentType.getDeclaredConstructor(WebDriver.class, WebElement.class).newInstance(driver, we);
-            } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+            } catch (InstantiationException | InvocationTargetException | IllegalAccessException |
+                     NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
         }).toList();
