@@ -52,8 +52,13 @@ public class FilterComponent extends Component {
     }
 
     private void spinnerWait() {
-        var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
-        wait.until(ExpectedConditions.invisibilityOf(spinner));
+        try {
+            var spinner = driver.findElement(By.cssSelector("div.faceted-overlay"));
+            wait.until(ExpectedConditions.invisibilityOf(spinner));
+        } catch (Exception e) {
+
+        }
+
     }
 
 }

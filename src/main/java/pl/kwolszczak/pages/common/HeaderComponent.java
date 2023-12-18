@@ -32,7 +32,7 @@ public class HeaderComponent extends Component {
         }
     }
 
-    protected void goHomePage() {
+    public void goHomePage() {
         click(homeBtn);
     }
 
